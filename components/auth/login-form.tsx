@@ -6,8 +6,9 @@ import { useAuth } from '@/lib/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Checkbox } from '@/components/ui/checkbox';
 import Link from 'next/link';
+import { Github, Mail, Chrome } from 'lucide-react';
 
 const loginSchema = z.object({
     email: z.string().email('Invalid email address'),
@@ -38,41 +39,75 @@ export function LoginForm() {
     };
 
     return (
-        <Card className="w-full">
-            <CardHeader className="space-y-1">
-                <CardTitle className="text-2xl font-bold">Login</CardTitle>
-                <CardDescription>
-                    Enter your email and password to access your dashboard
-                </CardDescription>
-            </CardHeader>
-            <CardContent className="grid gap-4">
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <div className="grid gap-2">
-                        <Label htmlFor="email">Email</Label>
-                        <Input id="email" type="email" placeholder="m@example.com" {...register('email')} />
-                        {errors.email && <p className="text-sm text-red-500">{errors.email.message}</p>}
-                    </div>
-                    <div className="grid gap-2 mt-4">
-                        <Label htmlFor="password">Password</Label>
-                        <Input id="password" type="password" {...register('password')} />
-                        {errors.password && <p className="text-sm text-red-500">{errors.password.message}</p>}
+        <div className="flex flex-col space-y-8 lg:space-y-12">
+            <div className="flex flex-col">
+                <h2 className="text-4xl lg:text-6xl font-extralight text-blue-600 tracking-tight leading-none">Hello,</h2>
+                <h2 className="text-4xl lg:text-6xl font-black text-blue-700 tracking-tighter leading-tight">welcome!</h2>
+            </div>
+
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+                <div className="relative border border-zinc-200 divide-y divide-zinc-200 rounded-sm">
+                    {/* Pink Accent Bar */}
+                    <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-pink-500 z-10" />
+
+                    <div className="p-4 pl-8 space-y-1 bg-white">
+                        <Label htmlFor="email" className="text-[10px] uppercase tracking-widest text-zinc-400 font-bold">Email address</Label>
+                        <input
+                            id="email"
+                            type="email"
+                            placeholder="name@mail.com"
+                            className="block w-full border-0 p-0 text-sm focus:ring-0 placeholder:text-zinc-300 font-medium"
+                            {...register('email')}
+                        />
                     </div>
 
-                    {error && <div className="mt-4 text-sm text-red-500">{error}</div>}
+                    <div className="p-4 pl-8 space-y-1 bg-white">
+                        <Label htmlFor="password" title="" className="text-[10px] uppercase tracking-widest text-zinc-400 font-bold">Password</Label>
+                        <input
+                            id="password"
+                            type="password"
+                            placeholder="••••••••••••"
+                            className="block w-full border-0 p-0 text-sm focus:ring-0 placeholder:text-zinc-300 font-medium"
+                            {...register('password')}
+                        />
+                    </div>
+                </div>
 
-                    <Button className="w-full mt-6" type="submit" disabled={isLoginLoading}>
-                        {isLoginLoading ? 'Logging in...' : 'Login'}
-                    </Button>
-                </form>
-            </CardContent>
-            <CardFooter>
-                <p className="text-sm text-muted-foreground text-center w-full">
-                    Don't have an account?{' '}
-                    <Link href="/register" className="text-primary hover:underline">
-                        Register
+                {(errors.email || errors.password || error) && (
+                    <div className="text-xs font-semibold text-pink-500 animate-in fade-in slide-in-from-top-1">
+                        {errors.email?.message || errors.password?.message || error}
+                    </div>
+                )}
+
+                <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                        <Checkbox id="remember" className="border-zinc-300 rounded-none data-[state=checked]:bg-pink-500 data-[state=checked]:border-pink-500" />
+                        <label htmlFor="remember" className="text-xs font-bold text-zinc-400">Remember me</label>
+                    </div>
+                    <Link href="#" className="text-xs font-bold text-zinc-300 hover:text-pink-500 transition-colors">
+                        Forget password?
                     </Link>
-                </p>
-            </CardFooter>
-        </Card>
+                </div>
+
+                <div className="flex gap-4">
+                    <Button
+                        className="flex-1 h-12 rounded-none bg-pink-500 hover:bg-pink-600 text-white font-black uppercase tracking-widest text-xs transition-all active:scale-95 shadow-lg shadow-pink-500/20"
+                        type="submit"
+                        disabled={isLoginLoading}
+                    >
+                        {isLoginLoading ? '...' : 'Login'}
+                    </Button>
+                    <Link href="/register" className="flex-1">
+                        <Button
+                            variant="outline"
+                            className="w-full h-12 rounded-none border-2 border-blue-600 text-blue-600 hover:bg-blue-50 font-black uppercase tracking-widest text-xs transition-all active:scale-95"
+                            type="button"
+                        >
+                            Sign up
+                        </Button>
+                    </Link>
+                </div>
+            </form>
+        </div>
     );
 }
