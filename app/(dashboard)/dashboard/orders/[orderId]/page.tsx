@@ -162,7 +162,7 @@ export default function OrderDetailPage() {
 
     const getStatusColor = (status: string) => {
         switch (status) {
-            case 'delivered': return 'bg-blue-600';
+            case 'success': return 'bg-blue-600';
             case 'processing': return 'bg-pink-500';
             case 'pending': return 'bg-muted-foreground';
             default: return 'bg-muted-foreground';
@@ -193,14 +193,14 @@ export default function OrderDetailPage() {
                 <div className="lg:col-span-2 space-y-6">
                     {/* Order Items */}
                     <Card className="rounded-none border-border bg-card">
-                        <CardHeader>
+                        <CardHeader className="border-b border-border/10">
                             <CardTitle className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Order Items</CardTitle>
                         </CardHeader>
-                        <CardContent>
+                        <CardContent className="pt-6">
                             <div className="space-y-4">
                                 {order.items.map((item: any) => (
                                     <div key={item.id} className="flex items-center gap-4 p-4 border border-border rounded-sm">
-                                        <div className="h-16 w-16 bg-muted rounded-sm flex items-center justify-center border border-border">
+                                        <div className="h-16 w-16 bg-muted rounded-none flex items-center justify-center border border-border">
                                             <Package className="h-8 w-8 text-muted-foreground/30" />
                                         </div>
                                         <div className="flex-1">
@@ -226,7 +226,7 @@ export default function OrderDetailPage() {
                                     <span className="text-muted-foreground font-bold">Shipping</span>
                                     <span className="font-black text-foreground">${order.shipping.toFixed(2)}</span>
                                 </div>
-                                <div className="flex justify-between text-lg pt-2 border-t border-border">
+                                <div className="flex justify-between text-lg pt-4 border-t border-border mt-4">
                                     <span className="font-black text-foreground uppercase text-[10px] tracking-widest">Total</span>
                                     <span className="font-black text-foreground">${order.total.toFixed(2)}</span>
                                 </div>
@@ -236,23 +236,23 @@ export default function OrderDetailPage() {
 
                     {/* Order Timeline */}
                     <Card className="rounded-none border-border bg-card">
-                        <CardHeader>
+                        <CardHeader className="border-b border-border/10">
                             <CardTitle className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Order Timeline</CardTitle>
                         </CardHeader>
-                        <CardContent>
+                        <CardContent className="pt-6">
                             <div className="space-y-4">
                                 {order.timeline.map((event: any, index: number) => (
-                                    <div key={index} className="flex gap-4">
+                                    <div key={index} className="flex gap-6">
                                         <div className="flex flex-col items-center">
-                                            <div className={`h-8 w-8 rounded-full flex items-center justify-center ${event.completed ? 'bg-blue-600' : 'bg-muted'}`}>
-                                                {event.completed && <div className="h-3 w-3 bg-white rounded-full" />}
+                                            <div className={`h-8 w-8 rounded-none border border-border flex items-center justify-center ${event.completed ? 'bg-blue-600' : 'bg-muted'}`}>
+                                                {event.completed && <div className="h-2 w-2 bg-white rounded-none" />}
                                             </div>
                                             {index < order.timeline.length - 1 && (
-                                                <div className={`w-0.5 flex-1 my-1 ${event.completed ? 'bg-blue-600' : 'bg-border'}`} style={{ minHeight: '20px' }} />
+                                                <div className={`w-px flex-1 my-1 ${event.completed ? 'bg-blue-600' : 'bg-border'}`} style={{ minHeight: '32px' }} />
                                             )}
                                         </div>
-                                        <div className="flex-1 pb-4">
-                                            <p className={`text-sm font-black ${event.completed ? 'text-foreground' : 'text-muted-foreground'}`}>
+                                        <div className="flex-1 pb-6">
+                                            <p className={`text-sm font-black uppercase tracking-tight ${event.completed ? 'text-foreground' : 'text-muted-foreground'}`}>
                                                 {event.status}
                                             </p>
                                             {event.date && (
@@ -271,14 +271,15 @@ export default function OrderDetailPage() {
                 {/* Right Column - Customer & Shipping Info */}
                 <div className="space-y-6">
                     {/* Customer Info */}
-                    <Card className="rounded-none border-border bg-card">
-                        <CardHeader>
+                    <Card className="rounded-none border-border bg-card relative overflow-hidden">
+                        <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-600" />
+                        <CardHeader className="pl-6 pt-6 pb-2">
                             <CardTitle className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Customer</CardTitle>
                         </CardHeader>
-                        <CardContent className="space-y-4">
+                        <CardContent className="pl-6 space-y-4">
                             <div className="flex items-center gap-3">
                                 <Avatar className="h-10 w-10 rounded-none border border-border">
-                                    <AvatarFallback className="rounded-none bg-blue-600 text-white font-black">
+                                    <AvatarFallback className="rounded-none bg-blue-600/5 text-blue-600 font-black">
                                         {order.customer.name[0]}
                                     </AvatarFallback>
                                 </Avatar>
@@ -288,38 +289,40 @@ export default function OrderDetailPage() {
                                 </div>
                             </div>
                             <div className="flex items-center gap-3 pt-2">
-                                <User className="h-4 w-4 text-blue-600" />
-                                <p className="text-xs text-muted-foreground">{order.customer.phone}</p>
+                                <Phone className="h-4 w-4 text-blue-600" />
+                                <p className="text-xs text-muted-foreground font-bold">{order.customer.phone}</p>
                             </div>
                         </CardContent>
                     </Card>
 
                     {/* Shipping Address */}
-                    <Card className="rounded-none border-border bg-card">
-                        <CardHeader>
+                    <Card className="rounded-none border-border bg-card relative overflow-hidden">
+                        <div className="absolute left-0 top-0 bottom-0 w-1 bg-pink-500" />
+                        <CardHeader className="pl-6 pt-6 pb-2">
                             <CardTitle className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Shipping Address</CardTitle>
                         </CardHeader>
-                        <CardContent>
+                        <CardContent className="pl-6">
                             <div className="flex gap-3">
-                                <MapPin className="h-4 w-4 text-pink-500 mt-1" />
+                                <MapPin className="h-4 w-4 text-pink-500 mt-1 flex-shrink-0" />
                                 <div className="text-sm text-foreground">
-                                    <p className="font-bold">{order.shippingAddress.street}</p>
-                                    <p>{order.shippingAddress.city}, {order.shippingAddress.state} {order.shippingAddress.zip}</p>
-                                    <p>{order.shippingAddress.country}</p>
+                                    <p className="font-black text-xs uppercase tracking-tight">{order.shippingAddress.street}</p>
+                                    <p className="font-bold text-muted-foreground">{order.shippingAddress.city}, {order.shippingAddress.state} {order.shippingAddress.zip}</p>
+                                    <p className="font-bold text-muted-foreground">{order.shippingAddress.country}</p>
                                 </div>
                             </div>
                         </CardContent>
                     </Card>
 
                     {/* Payment Info */}
-                    <Card className="rounded-none border-border bg-card">
-                        <CardHeader>
+                    <Card className="rounded-none border-border bg-card relative overflow-hidden text-blue-600">
+                        <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-600" />
+                        <CardHeader className="pl-6 pt-6 pb-2">
                             <CardTitle className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Payment Method</CardTitle>
                         </CardHeader>
-                        <CardContent>
+                        <CardContent className="pl-6">
                             <div className="flex items-center gap-3">
-                                <CreditCard className="h-4 w-4 text-blue-600" />
-                                <p className="text-sm font-bold text-foreground">{order.paymentMethod}</p>
+                                <CreditCard className="h-4 w-4" />
+                                <p className="text-xs font-black uppercase tracking-tight">{order.paymentMethod}</p>
                             </div>
                         </CardContent>
                     </Card>

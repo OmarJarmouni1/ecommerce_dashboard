@@ -6,6 +6,7 @@ import { useAuth } from '@/lib/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const registerSchema = z.object({
     firstName: z.string().min(2, 'First name is required'),
@@ -39,9 +40,20 @@ export function RegisterForm() {
 
     return (
         <div className="flex flex-col space-y-8 lg:space-y-12">
-            <div className="flex flex-col">
-                <h2 className="text-4xl lg:text-6xl font-extralight text-pink-500 tracking-tight leading-none">Join,</h2>
-                <h2 className="text-4xl lg:text-6xl font-black text-pink-600 tracking-tighter leading-tight">RMKO!</h2>
+            <div className="flex flex-col gap-6">
+                <div className="relative h-12 w-32 border-l-4 border-blue-600 pl-4">
+                    <Image
+                        src="/images/logo.png"
+                        alt="RMKO Logo"
+                        fill
+                        className="object-contain"
+                        priority
+                    />
+                </div>
+                <div className="flex flex-col">
+                    <h2 className="text-4xl lg:text-6xl font-extralight text-pink-500 tracking-tight leading-none">Join,</h2>
+                    <h2 className="text-4xl lg:text-6xl font-black text-pink-600 tracking-tighter leading-tight">RMKO!</h2>
+                </div>
             </div>
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">

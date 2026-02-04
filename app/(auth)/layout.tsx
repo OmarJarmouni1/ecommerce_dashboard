@@ -12,20 +12,6 @@ export default function AuthLayout({
             {/* Form Section (Left) */}
             <div className="flex flex-col p-8 lg:py-12 lg:px-24 bg-background relative overflow-y-auto lg:overflow-hidden">
                 <div className="flex flex-col h-full max-w-[450px] w-full mx-auto lg:mx-0">
-                    {/* Logo */}
-                    <div className="mb-12">
-                        <Link href="/" className="flex items-center gap-2">
-                            <div className="relative h-8 w-32">
-                                <Image
-                                    src="/images/logo.png"
-                                    alt="RMKO Logo"
-                                    fill
-                                    className="object-contain"
-                                    priority
-                                />
-                            </div>
-                        </Link>
-                    </div>
 
                     {/* Form Container */}
                     <div className="flex-1">

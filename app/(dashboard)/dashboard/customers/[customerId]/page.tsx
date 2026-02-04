@@ -106,11 +106,11 @@ export default function CustomerDetailPage() {
                     <ChevronLeft className="h-4 w-4" />
                 </Button>
                 <Avatar className="h-12 w-12 rounded-none border border-border">
-                    <AvatarFallback className="rounded-none bg-blue-600 text-white font-black">{customer.name[0]}</AvatarFallback>
+                    <AvatarFallback className="rounded-none bg-blue-600/5 text-blue-600 font-black">{customer.name[0]}</AvatarFallback>
                 </Avatar>
                 <div className="flex-1">
-                    <h1 className="text-3xl font-black text-foreground tracking-tight">{customer.name}</h1>
-                    <p className="text-xs uppercase tracking-widest text-muted-foreground font-bold mt-1">Customer ID: {customer.id}</p>
+                    <h1 className="text-3xl font-black text-foreground tracking-tight uppercase">{customer.name}</h1>
+                    <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold mt-1">ID: {customer.id}</p>
                 </div>
                 <Badge variant="default" className="rounded-none uppercase text-[10px] tracking-widest font-bold bg-blue-600">
                     {customer.status}
@@ -119,52 +119,54 @@ export default function CustomerDetailPage() {
 
             {/* Contact Info */}
             <div className="grid gap-6 md:grid-cols-2">
-                <Card className="rounded-none border-border bg-card">
-                    <CardHeader>
+                <Card className="rounded-none border-border bg-card relative overflow-hidden">
+                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-600" />
+                    <CardHeader className="pl-6 pt-6 pb-2">
                         <CardTitle className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Contact Information</CardTitle>
                     </CardHeader>
-                    <CardContent className="space-y-4">
+                    <CardContent className="pl-6 space-y-4">
                         <div className="flex items-center gap-3">
                             <Mail className="h-4 w-4 text-blue-600" />
                             <div>
                                 <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Email</p>
-                                <p className="text-sm font-bold text-foreground">{customer.email}</p>
+                                <p className="text-sm font-black text-foreground leading-none mt-1">{customer.email}</p>
                             </div>
                         </div>
                         <div className="flex items-center gap-3">
                             <Phone className="h-4 w-4 text-pink-500" />
                             <div>
                                 <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Phone</p>
-                                <p className="text-sm font-bold text-foreground">{customer.phone}</p>
+                                <p className="text-sm font-black text-foreground leading-none mt-1">{customer.phone}</p>
                             </div>
                         </div>
                         <div className="flex items-center gap-3">
                             <MapPin className="h-4 w-4 text-blue-600" />
                             <div>
                                 <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Address</p>
-                                <p className="text-sm font-bold text-foreground">{customer.address}</p>
+                                <p className="text-sm font-black text-foreground leading-none mt-1">{customer.address}</p>
                             </div>
                         </div>
                     </CardContent>
                 </Card>
 
-                <Card className="rounded-none border-border bg-card">
-                    <CardHeader>
+                <Card className="rounded-none border-border bg-card relative overflow-hidden">
+                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-pink-500" />
+                    <CardHeader className="pl-6 pt-6 pb-2">
                         <CardTitle className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Account Details</CardTitle>
                     </CardHeader>
-                    <CardContent className="space-y-4">
+                    <CardContent className="pl-6 space-y-4">
                         <div className="flex items-center gap-3">
                             <Calendar className="h-4 w-4 text-pink-500" />
                             <div>
                                 <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Member Since</p>
-                                <p className="text-sm font-bold text-foreground">{new Date(customer.joinDate).toLocaleDateString()}</p>
+                                <p className="text-sm font-black text-foreground leading-none mt-1">{new Date(customer.joinDate).toLocaleDateString()}</p>
                             </div>
                         </div>
                         <div className="flex items-center gap-3">
                             <ShoppingCart className="h-4 w-4 text-blue-600" />
                             <div>
                                 <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Last Order</p>
-                                <p className="text-sm font-bold text-foreground">{new Date(customer.lastOrderDate).toLocaleDateString()}</p>
+                                <p className="text-sm font-black text-foreground leading-none mt-1">{new Date(customer.lastOrderDate).toLocaleDateString()}</p>
                             </div>
                         </div>
                     </CardContent>
@@ -174,53 +176,53 @@ export default function CustomerDetailPage() {
             {/* Stats */}
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
                 <Card className="rounded-none border-border bg-card relative overflow-hidden">
-                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-600" />
+                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-600 opacity-20" />
                     <CardHeader className="pl-6">
                         <CardTitle className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Total Orders</CardTitle>
                     </CardHeader>
-                    <CardContent className="pl-6">
+                    <CardContent className="pl-6 pb-6">
                         <div className="flex items-center gap-2">
                             <ShoppingCart className="h-4 w-4 text-blue-600" />
-                            <span className="text-2xl font-black text-foreground">{customer.totalOrders}</span>
+                            <span className="text-2xl font-black text-foreground tracking-tighter">{customer.totalOrders}</span>
                         </div>
                     </CardContent>
                 </Card>
 
                 <Card className="rounded-none border-border bg-card relative overflow-hidden">
-                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-pink-500" />
+                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-pink-500 opacity-20" />
                     <CardHeader className="pl-6">
                         <CardTitle className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Total Spent</CardTitle>
                     </CardHeader>
-                    <CardContent className="pl-6">
+                    <CardContent className="pl-6 pb-6">
                         <div className="flex items-center gap-2">
                             <DollarSign className="h-4 w-4 text-pink-500" />
-                            <span className="text-2xl font-black text-foreground">${customer.totalSpent.toFixed(2)}</span>
+                            <span className="text-2xl font-black text-foreground tracking-tighter">${customer.totalSpent.toFixed(2)}</span>
                         </div>
                     </CardContent>
                 </Card>
 
                 <Card className="rounded-none border-border bg-card relative overflow-hidden">
-                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-600" />
+                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-600 opacity-20" />
                     <CardHeader className="pl-6">
                         <CardTitle className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Avg Order Value</CardTitle>
                     </CardHeader>
-                    <CardContent className="pl-6">
+                    <CardContent className="pl-6 pb-6">
                         <div className="flex items-center gap-2">
                             <TrendingUp className="h-4 w-4 text-blue-600" />
-                            <span className="text-2xl font-black text-foreground">${customer.averageOrderValue.toFixed(2)}</span>
+                            <span className="text-2xl font-black text-foreground tracking-tighter">${customer.averageOrderValue.toFixed(2)}</span>
                         </div>
                     </CardContent>
                 </Card>
 
                 <Card className="rounded-none border-border bg-card relative overflow-hidden">
-                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-pink-500" />
+                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-pink-500 opacity-20" />
                     <CardHeader className="pl-6">
-                        <CardTitle className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Lifetime Value</CardTitle>
+                        <CardTitle className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Loyalty Points</CardTitle>
                     </CardHeader>
-                    <CardContent className="pl-6">
+                    <CardContent className="pl-6 pb-6">
                         <div className="flex items-center gap-2">
-                            <DollarSign className="h-4 w-4 text-pink-500" />
-                            <span className="text-2xl font-black text-foreground">${customer.totalSpent.toFixed(2)}</span>
+                            <TrendingUp className="h-4 w-4 text-pink-500" />
+                            <span className="text-2xl font-black text-foreground tracking-tighter">1,240</span>
                         </div>
                     </CardContent>
                 </Card>
@@ -228,22 +230,20 @@ export default function CustomerDetailPage() {
 
             {/* Recent Orders */}
             <Card className="rounded-none border-border bg-card">
-                <CardHeader>
-                    <CardTitle className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Recent Orders</CardTitle>
+                <CardHeader className="border-b border-border/10">
+                    <CardTitle className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Order History</CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-6 pb-6">
                     <div className="space-y-4">
                         {customer.recentOrders.map((order: any) => (
-                            <div key={order.id} className="flex items-center justify-between p-4 border border-border rounded-sm hover:bg-muted/50 transition-colors">
-                                <div className="flex items-center gap-4">
-                                    <div>
-                                        <p className="text-sm font-black text-foreground">{order.id}</p>
-                                        <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">{new Date(order.date).toLocaleDateString()}</p>
-                                    </div>
+                            <div key={order.id} className="flex items-center justify-between p-4 border border-border rounded-none hover:bg-muted/50 transition-colors group cursor-pointer" onClick={() => router.push(`/dashboard/orders/${order.id}`)}>
+                                <div className="flex flex-col">
+                                    <p className="text-sm font-black text-foreground uppercase tracking-tight">#{order.id}</p>
+                                    <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">{new Date(order.date).toLocaleDateString()}</p>
                                 </div>
-                                <div className="flex items-center gap-4">
-                                    <p className="text-sm font-black text-foreground">${order.total.toFixed(2)}</p>
-                                    <Badge variant="default" className="rounded-none uppercase text-[10px] tracking-widest font-bold bg-blue-600">
+                                <div className="flex items-center gap-6">
+                                    <p className="text-sm font-black text-foreground tracking-tight">${order.total.toFixed(2)}</p>
+                                    <Badge variant="default" className="rounded-none uppercase text-[9px] tracking-widest font-bold bg-blue-600 min-w-20 justify-center">
                                         {order.status}
                                     </Badge>
                                 </div>

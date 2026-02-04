@@ -103,7 +103,7 @@ const data: Customer[] = [
 export default function CustomersPage() {
     return (
         <div className="space-y-6">
-            <h1 className="text-3xl font-bold">Customers</h1>
+            <h1 className="text-3xl font-black text-foreground tracking-tight uppercase">Customers</h1>
             <DataTable columns={columns} data={data} searchKey="name" />
         </div>
     );

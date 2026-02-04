@@ -9,6 +9,7 @@ import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
 import Link from 'next/link';
 import { Github, Mail, Chrome } from 'lucide-react';
+import Image from 'next/image';
 
 const loginSchema = z.object({
     email: z.string().email('Invalid email address'),
@@ -44,9 +45,20 @@ export function LoginForm() {
 
     return (
         <div className="flex flex-col space-y-8 lg:space-y-12">
-            <div className="flex flex-col">
-                <h2 className="text-4xl lg:text-6xl font-extralight text-blue-500 tracking-tight leading-none">Hello,</h2>
-                <h2 className="text-4xl lg:text-6xl font-black text-blue-600 tracking-tighter leading-tight">welcome!</h2>
+            <div className="flex flex-col gap-6">
+                <div className="relative h-12 w-32 border-l-4 border-pink-500 pl-4">
+                    <Image
+                        src="/images/logo.png"
+                        alt="RMKO Logo"
+                        fill
+                        className="object-contain"
+                        priority
+                    />
+                </div>
+                <div className="flex flex-col">
+                    <h2 className="text-4xl lg:text-6xl font-extralight text-blue-500 tracking-tight leading-none">Hello,</h2>
+                    <h2 className="text-4xl lg:text-6xl font-black text-blue-600 tracking-tighter leading-tight">welcome!</h2>
+                </div>
             </div>
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">

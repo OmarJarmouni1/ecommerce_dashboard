@@ -100,7 +100,7 @@ export function DataTable<TData, TValue>({
                                 <TableCell colSpan={columns.length} className="h-40 text-center">
                                     <div className="flex flex-col items-center justify-center gap-2 opacity-50">
                                         <span className="text-2xl">📦</span>
-                                        <span className="text-[10px] uppercase tracking-widest font-black">No products found</span>
+                                        <span className="text-[10px] uppercase tracking-widest font-black">No results found</span>
                                     </div>
                                 </TableCell>
                             </TableRow>
@@ -110,7 +110,7 @@ export function DataTable<TData, TValue>({
             </div>
             <div className="flex items-center justify-between px-4 py-4 border-t border-border bg-card">
                 <div className="text-[10px] uppercase tracking-widest font-bold text-muted-foreground">
-                    Showing {table.getRowModel().rows.length} of {data.length} products
+                    Showing {table.getRowModel().rows.length} of {data.length} entries
                 </div>
                 <div className="flex items-center space-x-2">
                     <Button

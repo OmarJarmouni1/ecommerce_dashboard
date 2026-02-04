@@ -103,17 +103,6 @@ export default function TeamSettingsPage() {
         });
     };
 
-    const getRoleBadgeVariant = (role: string) => {
-        switch (role) {
-            case "admin":
-                return "default";
-            case "manager":
-                return "secondary";
-            default:
-                return "outline";
-        }
-    };
-
     const getStatusBadgeVariant = (status: string) => {
         switch (status) {
             case "active":
@@ -137,13 +126,13 @@ export default function TeamSettingsPage() {
             <Separator />
 
             {/* Invite New Member */}
-            <Card>
+            <Card className="rounded-none border-border">
                 <CardHeader>
                     <div className="flex items-center gap-2">
                         <Mail className="h-5 w-5" />
-                        <CardTitle>Invite Team Member</CardTitle>
+                        <CardTitle className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Invite Team Member</CardTitle>
                     </div>
-                    <CardDescription>
+                    <CardDescription className="text-xs">
                         Send an invitation to add a new team member to your store.
                     </CardDescription>
                 </CardHeader>
@@ -155,6 +144,7 @@ export default function TeamSettingsPage() {
                                 placeholder="email@example.com"
                                 value={newMemberEmail}
                                 onChange={(e) => setNewMemberEmail(e.target.value)}
+                                className="rounded-none"
                             />
                         </div>
                         <div className="w-40">
@@ -164,17 +154,17 @@ export default function TeamSettingsPage() {
                                     setNewMemberRole(value)
                                 }
                             >
-                                <SelectTrigger>
+                                <SelectTrigger className="rounded-none">
                                     <SelectValue />
                                 </SelectTrigger>
-                                <SelectContent>
+                                <SelectContent className="rounded-none">
                                     <SelectItem value="admin">Admin</SelectItem>
                                     <SelectItem value="manager">Manager</SelectItem>
                                     <SelectItem value="staff">Staff</SelectItem>
                                 </SelectContent>
                             </Select>
                         </div>
-                        <Button onClick={handleInvite}>
+                        <Button onClick={handleInvite} className="rounded-none bg-blue-600 hover:bg-blue-700 uppercase tracking-widest text-[10px] font-bold">
                             <Plus className="mr-2 h-4 w-4" />
                             Invite
                         </Button>
@@ -183,13 +173,13 @@ export default function TeamSettingsPage() {
             </Card>
 
             {/* Team Members List */}
-            <Card>
+            <Card className="rounded-none border-border">
                 <CardHeader>
                     <div className="flex items-center gap-2">
                         <Users className="h-5 w-5" />
-                        <CardTitle>Team Members</CardTitle>
+                        <CardTitle className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Team Members</CardTitle>
                     </div>
-                    <CardDescription>
+                    <CardDescription className="text-xs">
                         Manage existing team members and their permissions.
                     </CardDescription>
                 </CardHeader>
@@ -198,7 +188,6 @@ export default function TeamSettingsPage() {
                         <TableHeader className="bg-muted/50 border-y border-border">
                             <TableRow className="hover:bg-transparent border-none">
                                 <TableHead className="h-10 text-[10px] uppercase tracking-widest font-bold text-muted-foreground px-4">Name</TableHead>
-                                <TableHead className="h-10 text-[10px] uppercase tracking-widest font-bold text-muted-foreground px-4">Email</TableHead>
                                 <TableHead className="h-10 text-[10px] uppercase tracking-widest font-bold text-muted-foreground px-4 text-center">Role</TableHead>
                                 <TableHead className="h-10 text-[10px] uppercase tracking-widest font-bold text-muted-foreground px-4 text-center">Status</TableHead>
                                 <TableHead className="h-10 text-[10px] uppercase tracking-widest font-bold text-muted-foreground px-4 text-right">Actions</TableHead>
@@ -207,13 +196,13 @@ export default function TeamSettingsPage() {
                         <TableBody>
                             {teamMembers.map((member) => (
                                 <TableRow key={member.id} className="border-b border-border hover:bg-muted/30 transition-colors">
-                                    <TableCell className="px-4 py-3">
-                                        <span className="font-bold text-sm text-foreground">{member.name}</span>
+                                    <TableCell className="px-4 py-4">
+                                        <div className="flex flex-col">
+                                            <span className="font-bold text-sm text-foreground">{member.name}</span>
+                                            <span className="text-[10px] uppercase tracking-widest text-muted-foreground/70 font-bold">{member.email}</span>
+                                        </div>
                                     </TableCell>
-                                    <TableCell className="px-4 py-3">
-                                        <span className="text-muted-foreground font-medium text-xs">{member.email}</span>
-                                    </TableCell>
-                                    <TableCell className="px-4 py-3">
+                                    <TableCell className="px-4 py-4">
                                         <div className="flex justify-center">
                                             <Select
                                                 value={member.role}
@@ -233,9 +222,9 @@ export default function TeamSettingsPage() {
                                             </Select>
                                         </div>
                                     </TableCell>
-                                    <TableCell className="px-4 py-3 text-center">
+                                    <TableCell className="px-4 py-4 text-center">
                                         <div className="flex justify-center">
-                                            <Badge variant={getStatusBadgeVariant(member.status)}
+                                            <Badge variant={member.status === 'active' ? 'default' : 'secondary'}
                                                 className={cn(
                                                     "rounded-none uppercase text-[9px] tracking-widest font-bold",
                                                     member.status === 'active' ? "bg-blue-600" : "bg-muted text-muted-foreground"
@@ -244,7 +233,7 @@ export default function TeamSettingsPage() {
                                             </Badge>
                                         </div>
                                     </TableCell>
-                                    <TableCell className="px-4 py-3 text-right">
+                                    <TableCell className="px-4 py-4 text-right">
                                         <div className="flex justify-end">
                                             <Button
                                                 variant="ghost"
@@ -264,44 +253,41 @@ export default function TeamSettingsPage() {
             </Card>
 
             {/* Role Permissions */}
-            <Card>
+            <Card className="rounded-none border-border">
                 <CardHeader>
                     <div className="flex items-center gap-2">
                         <Shield className="h-5 w-5" />
-                        <CardTitle>Role Permissions</CardTitle>
+                        <CardTitle className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Role Permissions</CardTitle>
                     </div>
-                    <CardDescription>
-                        Overview of permissions for each role.
-                    </CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <div className="space-y-4">
-                        <div className="rounded-lg border p-4">
+                    <div className="grid gap-6 md:grid-cols-3">
+                        <div className="rounded-none border p-6 space-y-2">
                             <div className="flex items-center justify-between mb-2">
-                                <h4 className="font-semibold">Admin</h4>
-                                <Badge>Full Access</Badge>
+                                <h4 className="font-black text-sm uppercase tracking-tighter">Admin</h4>
+                                <Badge className="rounded-none bg-blue-600 text-[9px] uppercase tracking-widest font-bold">Full Access</Badge>
                             </div>
-                            <p className="text-sm text-muted-foreground">
+                            <p className="text-xs text-muted-foreground leading-relaxed">
                                 Full access to all features including settings, team management, and billing.
                             </p>
                         </div>
 
-                        <div className="rounded-lg border p-4">
+                        <div className="rounded-none border p-6 space-y-2">
                             <div className="flex items-center justify-between mb-2">
-                                <h4 className="font-semibold">Manager</h4>
-                                <Badge variant="secondary">Limited Access</Badge>
+                                <h4 className="font-black text-sm uppercase tracking-tighter">Manager</h4>
+                                <Badge variant="secondary" className="rounded-none text-[9px] uppercase tracking-widest font-bold">Staff Access</Badge>
                             </div>
-                            <p className="text-sm text-muted-foreground">
+                            <p className="text-xs text-muted-foreground leading-relaxed">
                                 Can manage products, orders, and customers. Cannot access settings or billing.
                             </p>
                         </div>
 
-                        <div className="rounded-lg border p-4">
+                        <div className="rounded-none border p-6 space-y-2">
                             <div className="flex items-center justify-between mb-2">
-                                <h4 className="font-semibold">Staff</h4>
-                                <Badge variant="outline">View Only</Badge>
+                                <h4 className="font-black text-sm uppercase tracking-tighter">Staff</h4>
+                                <Badge variant="outline" className="rounded-none text-[9px] uppercase tracking-widest font-bold border-border bg-muted/30">View Only</Badge>
                             </div>
-                            <p className="text-sm text-muted-foreground">
+                            <p className="text-xs text-muted-foreground leading-relaxed">
                                 Can view orders and customers. Cannot make changes or access sensitive data.
                             </p>
                         </div>
