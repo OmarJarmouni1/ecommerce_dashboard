@@ -1,0 +1,278 @@
+# E-Commerce Dashboard - Cursor Rules
+
+## Project Overview
+This is a modern e-commerce dashboard built with Next.js 14+ (App Router), TypeScript, Tailwind CSS, and shadcn/ui components. The application provides comprehensive store management capabilities including products, orders, customers, analytics, and settings.
+
+## Tech Stack
+- **Framework**: Next.js 14+ with App Router
+- **Language**: TypeScript (strict mode)
+- **Styling**: Tailwind CSS with custom design tokens
+- **UI Components**: shadcn/ui (Radix UI primitives)
+- **State Management**: Zustand for auth, React Query for server state
+- **Charts**: Recharts
+- **Forms**: React Hook Form + Zod validation
+- **HTTP Client**: Axios with interceptors
+- **Theme**: next-themes for dark/light mode
+
+## Code Style & Conventions
+
+### TypeScript
+- Always use TypeScript with strict type checking
+- Prefer interfaces for object shapes, types for unions/intersections
+- Use explicit return types for functions
+- Avoid `any` - use `unknown` or proper types
+- Use Zod schemas for runtime validation
+
+### React & Next.js
+- Use "use client" directive only when necessary (client-side interactivity, hooks, browser APIs)
+- Prefer Server Components by default
+- Use async/await for data fetching in Server Components
+- Keep components small and focused (single responsibility)
+- Extract reusable logic into custom hooks
+- Use proper Next.js conventions:
+  - Route groups: `(auth)`, `(dashboard)`
+  - Loading states: `loading.tsx`
+  - Error boundaries: `error.tsx`
+  - Layouts: `layout.tsx`
+
+### Component Structure
+```typescript
+"use client"; // Only if needed
+
+import { ... } from "react";
+import { ... } from "next/...";
+import { ... } from "@/components/ui/...";
+import { ... } from "@/lib/...";
+import { ... } from "lucide-react";
+
+interface ComponentProps {
+  // Props definition
+}
+
+export function ComponentName({ prop1, prop2 }: ComponentProps) {
+  // Hooks
+  // Event handlers
+  // Render logic
+  
+  return (
+    // JSX
+  );
+}
+```
+
+### File Naming
+- Components: PascalCase (e.g., `ProductForm.tsx`, `KpiCard.tsx`)
+- Utilities/Hooks: camelCase (e.g., `useAuth.ts`, `formatCurrency.ts`)
+- Pages: lowercase with hyphens (e.g., `page.tsx`, `[id]/page.tsx`)
+- Route folders: lowercase (e.g., `products`, `settings`)
+
+### Import Organization
+1. React & Next.js imports
+2. Third-party libraries
+3. UI components (`@/components/ui`)
+4. Custom components (`@/components`)
+5. Utilities & hooks (`@/lib`)
+6. Types (`@/types`)
+7. Icons (lucide-react)
+
+## shadcn/ui Components
+
+### Installation
+Always install missing components using:
+```bash
+npx shadcn@latest add [component-name] -y
+```
+
+### Common Components
+- Forms: `form`, `input`, `textarea`, `select`, `checkbox`, `radio-group`, `switch`
+- Layout: `card`, `separator`, `tabs`, `dialog`, `sheet`
+- Feedback: `toast`, `alert`, `badge`
+- Data: `table`, `avatar`, `button`
+
+### Usage Patterns
+- Always wrap forms with `<Form>` from shadcn
+- Use `FormField`, `FormItem`, `FormLabel`, `FormControl`, `FormMessage` for form fields
+- Combine with Zod schemas and React Hook Form
+- Use `toast` from `@/components/ui/use-toast` for notifications
+
+## Forms & Validation
+
+### Standard Form Pattern
+```typescript
+const formSchema = z.object({
+  field: z.string().min(2, { message: "Error message" }),
+});
+
+type FormValues = z.infer<typeof formSchema>;
+
+const form = useForm<FormValues>({
+  resolver: zodResolver(formSchema),
+  defaultValues: { ... },
+});
+
+function onSubmit(data: FormValues) {
+  // Handle submission
+  toast({ title: "Success", description: "..." });
+}
+```
+
+## API & Data Fetching
+
+### Axios Client
+- Use the configured axios instance from `@/lib/api/axios`
+- Interceptors handle auth tokens automatically
+- API functions in `@/lib/api/` (e.g., `auth.ts`, `products.ts`)
+
+### React Query
+- Use for server state management
+- Queries: `useQuery` with proper keys
+- Mutations: `useMutation` with optimistic updates
+- Invalidate queries after mutations
+
+### Auth Flow
+- Auth state managed by Zustand (`@/lib/store/auth-store`)
+- Use `useAuth` hook for auth operations
+- Middleware protects dashboard routes
+- Redirect to `/login` if unauthenticated
+
+## Styling Guidelines
+
+### Tailwind CSS
+- Use utility classes, avoid custom CSS unless necessary
+- Follow mobile-first responsive design
+- Use design tokens from `globals.css`:
+  - Colors: `bg-background`, `text-foreground`, `border`, etc.
+  - Spacing: Tailwind default scale
+  - Typography: `text-sm`, `text-base`, `font-medium`, etc.
+
+### Dark Mode
+- Use `dark:` variants for dark mode styles
+- Theme toggle managed by `next-themes`
+- CSS variables adapt automatically
+
+### Component Styling
+- Prefer composition over custom classes
+- Use `cn()` utility for conditional classes
+- Keep responsive breakpoints: `sm:`, `md:`, `lg:`, `xl:`
+
+## Charts & Data Visualization
+
+### Recharts
+- Use wrapper components from `@/components/charts/`
+- Standard charts: `SalesChart`, `DistributionChart`, `TopProductsChart`
+- Always use `ResponsiveContainer` for responsive charts
+- Use CSS variables for colors: `var(--chart-1)`, `var(--chart-2)`, etc.
+- Add interactivity: tooltips, active states, hover effects
+
+## Settings Module
+
+### Structure
+- Dedicated layout with fixed sidebar (`settings/layout.tsx`)
+- Sidebar navigation (`SettingsSidebar`)
+- Individual pages: `profile`, `business`, `notifications`, `appearance`
+- Each page has comprehensive forms with validation
+
+### Best Practices
+- Group related settings in cards
+- Use tabs for sub-sections within a page
+- Provide clear descriptions for each setting
+- Show success/error feedback with toasts
+- Save buttons should be contextual (per card or per form)
+
+## Error Handling
+
+### Build Errors
+- Missing shadcn components: Install with `npx shadcn@latest add [component]`
+- Import errors: Check path aliases (`@/`)
+- Type errors: Ensure proper TypeScript types
+
+### Runtime Errors
+- Use error boundaries (`error.tsx`)
+- Show user-friendly error messages
+- Log errors for debugging
+- Provide fallback UI
+
+## Performance
+
+### Optimization
+- Use `loading.tsx` for loading states
+- Implement pagination for large lists
+- Lazy load heavy components
+- Optimize images with Next.js `<Image>`
+- Minimize client-side JavaScript
+
+### Best Practices
+- Avoid unnecessary re-renders
+- Memoize expensive computations
+- Use proper React Query cache strategies
+- Debounce search inputs
+
+## Testing & Quality
+
+### Before Committing
+- Run `npm run build` to check for build errors
+- Verify TypeScript types compile
+- Test in both light and dark modes
+- Check responsive design on mobile
+
+### Code Quality
+- Follow ESLint rules
+- Use Prettier for formatting
+- Write descriptive variable names
+- Add comments for complex logic
+- Keep functions small and focused
+
+## Common Patterns
+
+### Data Tables
+- Use `DataTable` component with sorting/filtering
+- Implement pagination
+- Add action columns for edit/delete
+- Show loading states
+
+### Modal Forms
+- Use `Dialog` or `Sheet` for modal forms
+- Handle form submission and validation
+- Close modal on success
+- Show loading state during submission
+
+### Status Badges
+- Use `StatusBadge` component
+- Consistent colors: success (green), warning (yellow), error (red)
+- Show status for orders, products, etc.
+
+## File Structure
+```
+app/
+├── (auth)/           # Auth pages (login, register)
+├── (dashboard)/      # Protected dashboard pages
+│   ├── layout.tsx    # Dashboard layout with sidebar
+│   └── dashboard/    # Dashboard routes
+│       ├── page.tsx  # Overview
+│       ├── products/
+│       ├── orders/
+│       ├── customers/
+│       ├── analytics/
+│       └── settings/
+components/
+├── ui/               # shadcn/ui components
+├── auth/             # Auth-related components
+├── dashboard/        # Dashboard components (Sidebar, Header)
+├── products/         # Product components
+├── orders/           # Order components
+├── charts/           # Chart components
+└── settings/         # Settings components
+lib/
+├── api/              # API client and functions
+├── hooks/            # Custom hooks
+├── store/            # Zustand stores
+└── utils.ts          # Utility functions
+```
+
+## Remember
+- Always install missing shadcn components before using them
+- Use proper TypeScript types throughout
+- Follow the established patterns in the codebase
+- Keep components small and reusable
+- Test in both light and dark modes
+- Prioritize user experience and accessibility
