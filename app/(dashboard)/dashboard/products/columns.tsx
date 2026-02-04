@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Button } from "@/components/ui/button"
 import { MoreHorizontal, ArrowUpDown } from "lucide-react"
+import { cn } from "@/lib/utils"
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -19,28 +20,37 @@ export type Product = {
     id: string
     name: string
     price: number
+    compareAtPrice?: number
     stock: number
     status: "active" | "draft" | "archived"
     image?: string
     category: string
+    sku: string
+    sales: number
 }
 
 export const columns: ColumnDef<Product>[] = [
     {
         id: "select",
         header: ({ table }) => (
-            <Checkbox
-                checked={table.getIsAllPageRowsSelected()}
-                onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-                aria-label="Select all"
-            />
+            <div className="px-1">
+                <Checkbox
+                    checked={table.getIsAllPageRowsSelected()}
+                    onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+                    aria-label="Select all"
+                    className="rounded-none border-muted-foreground/50 data-[state=checked]:bg-blue-600 data-[state=checked]:border-blue-600"
+                />
+            </div>
         ),
         cell: ({ row }) => (
-            <Checkbox
-                checked={row.getIsSelected()}
-                onCheckedChange={(value) => row.toggleSelected(!!value)}
-                aria-label="Select row"
-            />
+            <div className="px-1">
+                <Checkbox
+                    checked={row.getIsSelected()}
+                    onCheckedChange={(value) => row.toggleSelected(!!value)}
+                    aria-label="Select row"
+                    className="rounded-none border-muted-foreground/50 data-[state=checked]:bg-blue-600 data-[state=checked]:border-blue-600"
+                />
+            </div>
         ),
         enableSorting: false,
         enableHiding: false,
@@ -50,7 +60,7 @@ export const columns: ColumnDef<Product>[] = [
         header: "Image",
         cell: ({ row }) => {
             return (
-                <div className="relative h-10 w-10 overflow-hidden rounded-md border">
+                <div className="relative h-12 w-12 overflow-hidden rounded-none border border-border bg-muted">
                     {row.original.image ? (
                         <Image
                             src={row.original.image}
@@ -59,8 +69,8 @@ export const columns: ColumnDef<Product>[] = [
                             className="object-cover"
                         />
                     ) : (
-                        <div className="flex h-full w-full items-center justify-center bg-muted">
-                            📷
+                        <div className="flex h-full w-full items-center justify-center text-xs opacity-30">
+                            IMG
                         </div>
                     )}
                 </div>
@@ -69,27 +79,48 @@ export const columns: ColumnDef<Product>[] = [
     },
     {
         accessorKey: "name",
-        header: ({ column }) => {
-            return (
-                <Button
-                    variant="ghost"
-                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                >
-                    Name
-                    <ArrowUpDown className="ml-2 h-4 w-4" />
-                </Button>
-            )
-        },
+        header: ({ column }) => (
+            <Button
+                variant="ghost"
+                className="text-[10px] uppercase tracking-widest font-bold px-0 hover:bg-transparent"
+                onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+            >
+                Product
+                <ArrowUpDown className="ml-2 h-3 w-3" />
+            </Button>
+        ),
+        cell: ({ row }) => (
+            <div className="flex flex-col">
+                <span className="font-bold text-sm text-foreground">{row.original.name}</span>
+                <span className="text-[10px] uppercase tracking-widest text-muted-foreground/70 font-bold">{row.original.sku}</span>
+            </div>
+        )
     },
     {
-        accessorKey: "status",
-        header: "Status",
+        accessorKey: "category",
+        header: () => <span className="text-[10px] uppercase tracking-widest font-bold">Category</span>,
+        cell: ({ row }) => (
+            <Badge variant="outline" className="rounded-none text-[9px] uppercase tracking-widest font-bold border-blue-600/20 bg-blue-600/5 text-blue-600">
+                {row.original.category}
+            </Badge>
+        )
+    },
+    {
+        accessorKey: "stock",
+        header: () => <span className="text-[10px] uppercase tracking-widest font-bold">Stock</span>,
         cell: ({ row }) => {
-            const status = row.original.status
+            const stock = row.original.stock
+            let status = { label: "In Stock", color: "text-emerald-500 bg-emerald-500/10 border-emerald-500/20" }
+            if (stock === 0) status = { label: "Out of Stock", color: "text-pink-500 bg-pink-500/10 border-pink-500/20" }
+            else if (stock < 10) status = { label: "Low Stock", color: "text-amber-500 bg-amber-500/10 border-amber-500/20" }
+
             return (
-                <Badge variant={status === "active" ? "default" : "secondary"}>
-                    {status}
-                </Badge>
+                <div className="flex flex-col gap-1">
+                    <span className="font-mono text-xs font-bold">{stock}</span>
+                    <Badge className={cn("rounded-none text-[8px] uppercase tracking-widest font-bold px-1.5 py-0", status.color)}>
+                        {status.label}
+                    </Badge>
+                </div>
             )
         }
     },
@@ -98,21 +129,61 @@ export const columns: ColumnDef<Product>[] = [
         header: ({ column }) => (
             <Button
                 variant="ghost"
+                className="text-[10px] uppercase tracking-widest font-bold px-0 hover:bg-transparent"
                 onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
             >
                 Price
-                <ArrowUpDown className="ml-2 h-4 w-4" />
+                <ArrowUpDown className="ml-2 h-3 w-3" />
             </Button>
         ),
         cell: ({ row }) => {
-            const amount = parseFloat(row.getValue("price"))
-            const formatted = new Intl.NumberFormat("en-US", {
-                style: "currency",
-                currency: "USD",
-            }).format(amount)
+            const price = row.original.price
+            const compareAt = row.original.compareAtPrice
+            const discount = compareAt ? Math.round(((compareAt - price) / compareAt) * 100) : 0
 
-            return <div className="font-medium text-right font-mono">{formatted}</div>
+            return (
+                <div className="flex flex-col items-end">
+                    <div className="flex items-center gap-2">
+                        {compareAt && (
+                            <span className="text-xs text-muted-foreground line-through decoration-pink-500/50">
+                                ${compareAt.toFixed(2)}
+                            </span>
+                        )}
+                        <span className="font-black text-sm text-foreground">${price.toFixed(2)}</span>
+                    </div>
+                    {discount > 0 && (
+                        <span className="text-[9px] font-bold text-emerald-500 uppercase tracking-widest">
+                            -{discount}% OFF
+                        </span>
+                    )}
+                </div>
+            )
         },
+    },
+    {
+        accessorKey: "status",
+        header: () => <span className="text-[10px] uppercase tracking-widest font-bold">Status</span>,
+        cell: ({ row }) => {
+            const status = row.original.status
+            return (
+                <Badge variant={status === "active" ? "default" : "secondary"}
+                    className={cn(
+                        "rounded-none text-[9px] uppercase tracking-widest font-bold",
+                        status === "active" ? "bg-blue-600" : "bg-muted text-muted-foreground"
+                    )}>
+                    {status}
+                </Badge>
+            )
+        }
+    },
+    {
+        accessorKey: "sales",
+        header: () => <span className="text-[10px] uppercase tracking-widest font-bold text-right w-full">Sales</span>,
+        cell: ({ row }) => (
+            <div className="text-right font-mono text-xs font-bold text-muted-foreground">
+                {row.original.sales}
+            </div>
+        )
     },
     {
         id: "actions",
@@ -127,16 +198,21 @@ export const columns: ColumnDef<Product>[] = [
                             <MoreHorizontal className="h-4 w-4" />
                         </Button>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                    <DropdownMenuContent align="end" className="rounded-none">
+                        <DropdownMenuLabel className="text-[10px] uppercase tracking-widest font-bold">Actions</DropdownMenuLabel>
                         <DropdownMenuItem
-                            onClick={() => navigator.clipboard.writeText(payment.id)}
+                            onClick={() => window.location.href = `/dashboard/products/${payment.id}`}
+                            className="rounded-none font-bold text-xs cursor-pointer"
                         >
-                            Copy payment ID
+                            View Details
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem>View customer</DropdownMenuItem>
-                        <DropdownMenuItem>View payment details</DropdownMenuItem>
+                        <DropdownMenuItem
+                            onClick={() => navigator.clipboard.writeText(payment.id)}
+                            className="rounded-none text-xs"
+                        >
+                            Copy Product ID
+                        </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
             )

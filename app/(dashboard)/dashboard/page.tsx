@@ -109,20 +109,29 @@ export default function DashboardPage() {
     }
 
     return (
-        <div className="space-y-6">
-            <div className="flex items-center justify-between space-y-2">
-                <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
+        <div className="space-y-10">
+            {/* Greet Section */}
+            <div className="flex flex-col">
+                <h2 className="text-5xl lg:text-7xl font-extralight text-blue-500 tracking-tight leading-none">Hello,</h2>
+                <h1 className="text-5xl lg:text-7xl font-black text-blue-600 tracking-tighter leading-tight mt-1">admin!</h1>
+                <p className="text-muted-foreground font-bold uppercase tracking-[0.3em] text-[10px] mt-4 ml-1">Dashboard Overview</p>
             </div>
 
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
                 {data?.kpi.map((kpi, i) => (
                     <KPICard key={i} {...kpi} />
                 ))}
             </div>
 
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-                <SalesChart data={data?.salesData || []} />
-                <RecentOrders orders={data?.recentOrders || []} />
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-7">
+                <div className="lg:col-span-4 rounded-none border border-border bg-card p-6 shadow-sm overflow-hidden relative">
+                    {/* Subtle geometric accent */}
+                    <div className="absolute -top-24 -right-24 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl opacity-50" />
+                    <SalesChart data={data?.salesData || []} />
+                </div>
+                <div className="lg:col-span-3">
+                    <RecentOrders orders={data?.recentOrders || []} />
+                </div>
             </div>
         </div>
     );

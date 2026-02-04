@@ -41,53 +41,53 @@ export function RegisterForm() {
         <div className="flex flex-col space-y-8 lg:space-y-12">
             <div className="flex flex-col">
                 <h2 className="text-4xl lg:text-6xl font-extralight text-pink-500 tracking-tight leading-none">Join,</h2>
-                <h2 className="text-4xl lg:text-6xl font-black text-pink-600 tracking-tighter leading-tight">LuxeCart!</h2>
+                <h2 className="text-4xl lg:text-6xl font-black text-pink-600 tracking-tighter leading-tight">RMKO!</h2>
             </div>
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
-                <div className="relative border border-zinc-200 divide-y divide-zinc-200 rounded-sm overflow-hidden">
+                <div className="relative border border-border divide-y divide-border rounded-sm overflow-hidden">
                     {/* Blue Accent Bar */}
                     <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-blue-600 z-10" />
 
-                    <div className="grid grid-cols-2 divide-x divide-zinc-200">
-                        <div className="p-4 pl-8 space-y-1 bg-white">
-                            <Label htmlFor="firstName" className="text-[10px] uppercase tracking-widest text-zinc-400 font-bold">First Name</Label>
+                    <div className="grid grid-cols-2 divide-x divide-border">
+                        <div className="p-4 pl-8 space-y-1 bg-card">
+                            <Label htmlFor="firstName" className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">First Name</Label>
                             <input
                                 id="firstName"
                                 placeholder="John"
-                                className="block w-full border-0 p-0 text-sm focus:ring-0 placeholder:text-zinc-300 font-medium"
+                                className="block w-full border-0 p-0 text-sm focus:ring-0 placeholder:text-muted-foreground/30 font-medium bg-transparent text-foreground"
                                 {...register('firstName')}
                             />
                         </div>
-                        <div className="p-4 pl-4 space-y-1 bg-white">
-                            <Label htmlFor="lastName" className="text-[10px] uppercase tracking-widest text-zinc-400 font-bold">Last Name</Label>
+                        <div className="p-4 pl-4 space-y-1 bg-card">
+                            <Label htmlFor="lastName" className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Last Name</Label>
                             <input
                                 id="lastName"
                                 placeholder="Doe"
-                                className="block w-full border-0 p-0 text-sm focus:ring-0 placeholder:text-zinc-300 font-medium"
+                                className="block w-full border-0 p-0 text-sm focus:ring-0 placeholder:text-muted-foreground/30 font-medium bg-transparent text-foreground"
                                 {...register('lastName')}
                             />
                         </div>
                     </div>
 
-                    <div className="p-4 pl-8 space-y-1 bg-white">
-                        <Label htmlFor="email" className="text-[10px] uppercase tracking-widest text-zinc-400 font-bold">Email address</Label>
+                    <div className="p-4 pl-8 space-y-1 bg-card">
+                        <Label htmlFor="email" className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Email address</Label>
                         <input
                             id="email"
                             type="email"
                             placeholder="name@mail.com"
-                            className="block w-full border-0 p-0 text-sm focus:ring-0 placeholder:text-zinc-300 font-medium"
+                            className="block w-full border-0 p-0 text-sm focus:ring-0 placeholder:text-muted-foreground/30 font-medium bg-transparent text-foreground"
                             {...register('email')}
                         />
                     </div>
 
-                    <div className="p-4 pl-8 space-y-1 bg-white">
-                        <Label htmlFor="password" title="" className="text-[10px] uppercase tracking-widest text-zinc-400 font-bold">Password</Label>
+                    <div className="p-4 pl-8 space-y-1 bg-card">
+                        <Label htmlFor="password" title="" className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Password</Label>
                         <input
                             id="password"
                             type="password"
                             placeholder="••••••••••••"
-                            className="block w-full border-0 p-0 text-sm focus:ring-0 placeholder:text-zinc-300 font-medium"
+                            className="block w-full border-0 p-0 text-sm focus:ring-0 placeholder:text-muted-foreground/30 font-medium bg-transparent text-foreground"
                             {...register('password')}
                         />
                     </div>
@@ -110,7 +110,7 @@ export function RegisterForm() {
                     <Link href="/login" className="flex-1">
                         <Button
                             variant="outline"
-                            className="w-full h-12 rounded-none border-2 border-pink-500 text-pink-500 hover:bg-pink-50 font-black uppercase tracking-widest text-xs transition-all active:scale-95"
+                            className="w-full h-12 rounded-none border-2 border-pink-500 text-pink-500 hover:bg-pink-50 dark:hover:bg-pink-950/30 font-black uppercase tracking-widest text-xs transition-all active:scale-95"
                             type="button"
                         >
                             Sign in

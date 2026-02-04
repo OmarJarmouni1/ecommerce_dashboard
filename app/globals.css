@@ -56,13 +56,13 @@
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
 
-  /* Primary - Vibrant Purple */
-  --primary: oklch(0.55 0.25 285);
+  /* Primary - Vibrant Pink (as seen in Login button) */
+  --primary: oklch(0.65 0.25 350);
   --primary-foreground: oklch(0.985 0 0);
 
-  /* Secondary - Soft Lavender/Blue */
-  --secondary: oklch(0.95 0.05 285);
-  --secondary-foreground: oklch(0.35 0.15 285);
+  /* Secondary - Vibrant Blue (as seen in Login heading) */
+  --secondary: oklch(0.6 0.2 250);
+  --secondary-foreground: oklch(0.985 0 0);
 
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.556 0 0);
@@ -73,7 +73,7 @@
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
-  --ring: oklch(0.55 0.25 285);
+  --ring: oklch(0.65 0.25 350);
 
   /* Charts - Vibrant & Distinct Palette */
   --chart-1: oklch(0.646 0.222 41.116);
@@ -89,12 +89,12 @@
 
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.55 0.25 285);
+  --sidebar-primary: oklch(0.6 0.2 250);
   --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.95 0.05 285);
-  --sidebar-accent-foreground: oklch(0.35 0.15 285);
+  --sidebar-accent: oklch(0.97 0.05 250);
+  --sidebar-accent-foreground: oklch(0.35 0.15 250);
   --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.55 0.25 285);
+  --sidebar-ring: oklch(0.6 0.2 250);
 }
 
 .dark {
@@ -109,11 +109,11 @@
   --popover: oklch(0.15 0.03 285);
   --popover-foreground: oklch(0.985 0 0);
 
-  --primary: oklch(0.65 0.25 285);
-  /* Brighter purple for dark mode */
+  --primary: oklch(0.7 0.2 350);
+  /* Brighter pink for dark mode */
   --primary-foreground: oklch(0.1 0 0);
 
-  --secondary: oklch(0.25 0.05 285);
+  --secondary: oklch(0.3 0.1 250);
   --secondary-foreground: oklch(0.985 0 0);
 
   --muted: oklch(0.25 0.05 285);
@@ -125,7 +125,7 @@
   --destructive: oklch(0.704 0.191 22.216);
   --border: oklch(0.25 0.05 285);
   --input: oklch(0.25 0.05 285);
-  --ring: oklch(0.65 0.25 285);
+  --ring: oklch(0.7 0.2 350);
 
   /* Charts - Vibrant Dark Mode Palette */
   --chart-1: oklch(0.488 0.243 264.376);
@@ -139,14 +139,14 @@
   --chart-5: oklch(0.645 0.246 16.439);
   /* Red */
 
-  --sidebar: oklch(0.12 0.03 285);
+  --sidebar: oklch(0.12 0.03 250);
   --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.65 0.25 285);
+  --sidebar-primary: oklch(0.7 0.2 350);
   --sidebar-primary-foreground: oklch(0.1 0 0);
-  --sidebar-accent: oklch(0.25 0.05 285);
+  --sidebar-accent: oklch(0.2 0.05 250);
   --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(0.25 0.05 285);
-  --sidebar-ring: oklch(0.65 0.25 285);
+  --sidebar-border: oklch(0.2 0.05 250);
+  --sidebar-ring: oklch(0.7 0.2 350);
 }
 
 @layer base {

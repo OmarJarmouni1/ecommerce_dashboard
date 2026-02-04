@@ -41,33 +41,33 @@ export function LoginForm() {
     return (
         <div className="flex flex-col space-y-8 lg:space-y-12">
             <div className="flex flex-col">
-                <h2 className="text-4xl lg:text-6xl font-extralight text-blue-600 tracking-tight leading-none">Hello,</h2>
-                <h2 className="text-4xl lg:text-6xl font-black text-blue-700 tracking-tighter leading-tight">welcome!</h2>
+                <h2 className="text-4xl lg:text-6xl font-extralight text-blue-500 tracking-tight leading-none">Hello,</h2>
+                <h2 className="text-4xl lg:text-6xl font-black text-blue-600 tracking-tighter leading-tight">welcome!</h2>
             </div>
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
-                <div className="relative border border-zinc-200 divide-y divide-zinc-200 rounded-sm">
+                <div className="relative border border-border divide-y divide-border rounded-sm overflow-hidden">
                     {/* Pink Accent Bar */}
                     <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-pink-500 z-10" />
 
-                    <div className="p-4 pl-8 space-y-1 bg-white">
-                        <Label htmlFor="email" className="text-[10px] uppercase tracking-widest text-zinc-400 font-bold">Email address</Label>
+                    <div className="p-4 pl-8 space-y-1 bg-card">
+                        <Label htmlFor="email" className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Email address</Label>
                         <input
                             id="email"
                             type="email"
                             placeholder="name@mail.com"
-                            className="block w-full border-0 p-0 text-sm focus:ring-0 placeholder:text-zinc-300 font-medium"
+                            className="block w-full border-0 p-0 text-sm focus:ring-0 placeholder:text-muted-foreground/30 font-medium bg-transparent text-foreground"
                             {...register('email')}
                         />
                     </div>
 
-                    <div className="p-4 pl-8 space-y-1 bg-white">
-                        <Label htmlFor="password" title="" className="text-[10px] uppercase tracking-widest text-zinc-400 font-bold">Password</Label>
+                    <div className="p-4 pl-8 space-y-1 bg-card">
+                        <Label htmlFor="password" title="" className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Password</Label>
                         <input
                             id="password"
                             type="password"
                             placeholder="••••••••••••"
-                            className="block w-full border-0 p-0 text-sm focus:ring-0 placeholder:text-zinc-300 font-medium"
+                            className="block w-full border-0 p-0 text-sm focus:ring-0 placeholder:text-muted-foreground/30 font-medium bg-transparent text-foreground"
                             {...register('password')}
                         />
                     </div>
@@ -81,10 +81,10 @@ export function LoginForm() {
 
                 <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-2">
-                        <Checkbox id="remember" className="border-zinc-300 rounded-none data-[state=checked]:bg-pink-500 data-[state=checked]:border-pink-500" />
-                        <label htmlFor="remember" className="text-xs font-bold text-zinc-400">Remember me</label>
+                        <Checkbox id="remember" className="border-border rounded-none data-[state=checked]:bg-pink-500 data-[state=checked]:border-pink-500" />
+                        <label htmlFor="remember" className="text-xs font-bold text-muted-foreground">Remember me</label>
                     </div>
-                    <Link href="#" className="text-xs font-bold text-zinc-300 hover:text-pink-500 transition-colors">
+                    <Link href="#" className="text-xs font-bold text-muted-foreground/50 hover:text-pink-500 transition-colors">
                         Forget password?
                     </Link>
                 </div>
@@ -100,7 +100,7 @@ export function LoginForm() {
                     <Link href="/register" className="flex-1">
                         <Button
                             variant="outline"
-                            className="w-full h-12 rounded-none border-2 border-blue-600 text-blue-600 hover:bg-blue-50 font-black uppercase tracking-widest text-xs transition-all active:scale-95"
+                            className="w-full h-12 rounded-none border-2 border-blue-600 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/30 font-black uppercase tracking-widest text-xs transition-all active:scale-95"
                             type="button"
                         >
                             Sign up

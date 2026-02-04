@@ -40,10 +40,24 @@ const columns: ColumnDef<Order>[] = [
         accessorKey: "status",
         header: "Status",
         cell: ({ row }) => (
-            <Badge variant={row.original.status === 'success' ? 'default' : 'secondary'}>
+            <Badge variant={row.original.status === 'success' ? 'default' : 'secondary'} className="rounded-none uppercase text-[10px] tracking-widest font-bold">
                 {row.original.status}
             </Badge>
         )
+    },
+    {
+        id: "actions",
+        header: "Actions",
+        cell: ({ row }) => (
+            <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => window.location.href = `/dashboard/orders/${row.original.id}`}
+                className="rounded-none text-xs font-bold uppercase tracking-widest hover:text-blue-600"
+            >
+                View Details
+            </Button>
+        ),
     },
 ];
 

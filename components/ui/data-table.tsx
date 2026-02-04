@@ -39,6 +39,8 @@ export function DataTable<TData, TValue>({
     const [sorting, setSorting] = useState<SortingState>([])
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
 
+    const [rowSelection, setRowSelection] = useState({})
+
     const table = useReactTable({
         data,
         columns,
@@ -48,34 +50,24 @@ export function DataTable<TData, TValue>({
         getSortedRowModel: getSortedRowModel(),
         onColumnFiltersChange: setColumnFilters,
         getFilteredRowModel: getFilteredRowModel(),
+        onRowSelectionChange: setRowSelection,
         state: {
             sorting,
             columnFilters,
+            rowSelection,
         },
     })
 
     return (
-        <div>
-            {searchKey && (
-                <div className="flex items-center py-4">
-                    <Input
-                        placeholder={`Search ${searchKey}...`}
-                        value={(table.getColumn(searchKey)?.getFilterValue() as string) ?? ""}
-                        onChange={(event) =>
-                            table.getColumn(searchKey)?.setFilterValue(event.target.value)
-                        }
-                        className="max-w-sm"
-                    />
-                </div>
-            )}
-            <div className="rounded-md border">
+        <div className="group" data-selected={table.getIsSomeRowsSelected() || table.getIsAllRowsSelected()}>
+            <div className="rounded-none border-0">
                 <Table>
-                    <TableHeader>
+                    <TableHeader className="bg-muted/50 border-y border-border">
                         {table.getHeaderGroups().map((headerGroup) => (
-                            <TableRow key={headerGroup.id}>
+                            <TableRow key={headerGroup.id} className="hover:bg-transparent border-none">
                                 {headerGroup.headers.map((header) => {
                                     return (
-                                        <TableHead key={header.id}>
+                                        <TableHead key={header.id} className="h-10 text-[10px] uppercase tracking-widest font-bold text-muted-foreground py-0">
                                             {header.isPlaceholder
                                                 ? null
                                                 : flexRender(
@@ -94,9 +86,10 @@ export function DataTable<TData, TValue>({
                                 <TableRow
                                     key={row.id}
                                     data-state={row.getIsSelected() && "selected"}
+                                    className="border-b border-border hover:bg-muted/30 transition-colors group/row"
                                 >
                                     {row.getVisibleCells().map((cell) => (
-                                        <TableCell key={cell.id}>
+                                        <TableCell key={cell.id} className="py-3 px-4">
                                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                         </TableCell>
                                     ))}
@@ -104,33 +97,43 @@ export function DataTable<TData, TValue>({
                             ))
                         ) : (
                             <TableRow>
-                                <TableCell colSpan={columns.length} className="h-24 text-center">
-                                    No results.
+                                <TableCell colSpan={columns.length} className="h-40 text-center">
+                                    <div className="flex flex-col items-center justify-center gap-2 opacity-50">
+                                        <span className="text-2xl">📦</span>
+                                        <span className="text-[10px] uppercase tracking-widest font-black">No products found</span>
+                                    </div>
                                 </TableCell>
                             </TableRow>
                         )}
                     </TableBody>
                 </Table>
             </div>
-            <div className="flex items-center justify-end space-x-2 py-4">
-                <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => table.previousPage()}
-                    disabled={!table.getCanPreviousPage()}
-                >
-                    <ChevronLeft className="h-4 w-4" />
-                    Previous
-                </Button>
-                <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => table.nextPage()}
-                    disabled={!table.getCanNextPage()}
-                >
-                    Next
-                    <ChevronRight className="h-4 w-4" />
-                </Button>
+            <div className="flex items-center justify-between px-6 py-4 border-t border-border bg-card">
+                <div className="text-[10px] uppercase tracking-widest font-bold text-muted-foreground">
+                    Showing {table.getRowModel().rows.length} of {data.length} products
+                </div>
+                <div className="flex items-center space-x-2">
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => table.previousPage()}
+                        disabled={!table.getCanPreviousPage()}
+                        className="rounded-none h-8 text-[10px] uppercase tracking-widest font-black border-border px-4"
+                    >
+                        <ChevronLeft className="h-3 w-3 mr-1" />
+                        Previous
+                    </Button>
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => table.nextPage()}
+                        disabled={!table.getCanNextPage()}
+                        className="rounded-none h-8 text-[10px] uppercase tracking-widest font-black border-border px-4"
+                    >
+                        Next
+                        <ChevronRight className="h-3 w-3 ml-1" />
+                    </Button>
+                </div>
             </div>
         </div>
     )

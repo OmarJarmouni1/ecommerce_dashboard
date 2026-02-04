@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { ShoppingBag, Facebook, Twitter, Instagram } from "lucide-react";
+import Image from "next/image";
+import { Facebook, Twitter, Instagram } from "lucide-react";
 
 export default function AuthLayout({
     children,
@@ -9,15 +10,20 @@ export default function AuthLayout({
     return (
         <div className="grid h-screen overflow-hidden grid-cols-1 lg:grid-cols-2">
             {/* Form Section (Left) */}
-            <div className="flex flex-col p-8 lg:py-12 lg:px-24 bg-white relative overflow-y-auto lg:overflow-hidden">
+            <div className="flex flex-col p-8 lg:py-12 lg:px-24 bg-background relative overflow-y-auto lg:overflow-hidden">
                 <div className="flex flex-col h-full max-w-[450px] w-full mx-auto lg:mx-0">
                     {/* Logo */}
                     <div className="mb-12">
                         <Link href="/" className="flex items-center gap-2">
-                            <div className="rounded-lg bg-primary p-1.5">
-                                <ShoppingBag className="h-6 w-6 text-primary-foreground" />
+                            <div className="relative h-8 w-32">
+                                <Image
+                                    src="/images/logo.png"
+                                    alt="RMKO Logo"
+                                    fill
+                                    className="object-contain"
+                                    priority
+                                />
                             </div>
-                            <span className="text-xl font-bold tracking-tight text-zinc-400">yourlogo</span>
                         </Link>
                     </div>
 

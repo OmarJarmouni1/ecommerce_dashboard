@@ -3,6 +3,7 @@
 import { DataTable } from "@/components/ui/data-table";
 import { ColumnDef } from "@tanstack/react-table";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 
 type Customer = {
     id: string;
@@ -46,6 +47,20 @@ const columns: ColumnDef<Customer>[] = [
     {
         accessorKey: "lastOrder",
         header: "Last Order",
+    },
+    {
+        id: "actions",
+        header: "Actions",
+        cell: ({ row }) => (
+            <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => window.location.href = `/dashboard/customers/${row.original.id}`}
+                className="rounded-none text-xs font-bold uppercase tracking-widest hover:text-blue-600"
+            >
+                View Details
+            </Button>
+        ),
     },
 ];
 
