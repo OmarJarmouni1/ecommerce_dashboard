@@ -10,48 +10,48 @@ import { ChevronLeft, Package, DollarSign, MapPin, Calendar, User, CreditCard } 
 // Mock order data
 const getOrderById = (id: string) => {
     const orders: Record<string, any> = {
-        "ORD-001": {
-            id: "ORD-001",
+        "ORD-7281": {
+            id: "ORD-7281",
             customer: {
-                name: "John Doe",
-                email: "john@example.com",
-                phone: "+1 (555) 123-4567"
+                name: "Olivia Martin",
+                email: "olivia@email.com",
+                phone: "+1 (555) 012-3456"
             },
-            date: "2023-01-01",
-            status: "delivered",
+            date: "2024-02-01",
+            status: "success",
             total: 120.50,
             subtotal: 110.00,
             tax: 8.50,
             shipping: 2.00,
             shippingAddress: {
-                street: "123 Main St",
+                street: "88 Market St",
                 city: "New York",
                 state: "NY",
                 zip: "10001",
                 country: "USA"
             },
-            paymentMethod: "Credit Card (****1234)",
+            paymentMethod: "Credit Card (Visa ****4242)",
             items: [
                 { id: "1", name: "Wireless Headphones", quantity: 1, price: 75.00, image: "/placeholder.jpg" },
                 { id: "2", name: "Phone Case", quantity: 2, price: 17.50, image: "/placeholder.jpg" }
             ],
             timeline: [
-                { status: "Order Placed", date: "2023-01-01 10:30 AM", completed: true },
-                { status: "Payment Confirmed", date: "2023-01-01 10:35 AM", completed: true },
-                { status: "Processing", date: "2023-01-01 2:15 PM", completed: true },
-                { status: "Shipped", date: "2023-01-02 9:00 AM", completed: true },
-                { status: "Delivered", date: "2023-01-05 3:45 PM", completed: true }
+                { status: "Order Placed", date: "2024-02-01 10:30 AM", completed: true },
+                { status: "Payment Confirmed", date: "2024-02-01 10:35 AM", completed: true },
+                { status: "Processing", date: "2024-02-01 2:15 PM", completed: true },
+                { status: "Shipped", date: "2024-02-02 9:00 AM", completed: true },
+                { status: "Delivered", date: "2024-02-04 3:45 PM", completed: true }
             ]
         },
-        "ORD-002": {
-            id: "ORD-002",
+        "ORD-7282": {
+            id: "ORD-7282",
             customer: {
-                name: "Jane Smith",
-                email: "jane@example.com",
+                name: "Jackson Lee",
+                email: "jackson@email.com",
                 phone: "+1 (555) 987-6543"
             },
-            date: "2023-01-02",
-            status: "processing",
+            date: "2024-02-02",
+            status: "pending",
             total: 85.00,
             subtotal: 78.00,
             tax: 6.00,
@@ -68,11 +68,75 @@ const getOrderById = (id: string) => {
                 { id: "3", name: "Mechanical Keyboard", quantity: 1, price: 78.00, image: "/placeholder.jpg" }
             ],
             timeline: [
-                { status: "Order Placed", date: "2023-01-02 11:20 AM", completed: true },
-                { status: "Payment Confirmed", date: "2023-01-02 11:25 AM", completed: true },
-                { status: "Processing", date: "2023-01-02 3:00 PM", completed: true },
+                { status: "Order Placed", date: "2024-02-02 11:20 AM", completed: true },
+                { status: "Payment Confirmed", date: "2024-02-02 11:25 AM", completed: true },
+                { status: "Processing", date: "", completed: false },
                 { status: "Shipped", date: "", completed: false },
                 { status: "Delivered", date: "", completed: false }
+            ]
+        },
+        "ORD-7283": {
+            id: "ORD-7283",
+            customer: {
+                name: "Isabella Nguyen",
+                email: "isabella@email.com",
+                phone: "+1 (555) 456-7890"
+            },
+            date: "2024-02-03",
+            status: "processing",
+            total: 299.00,
+            subtotal: 280.00,
+            tax: 14.00,
+            shipping: 5.00,
+            shippingAddress: {
+                street: "789 Pine Rd",
+                city: "Seattle",
+                state: "WA",
+                zip: "98101",
+                country: "USA"
+            },
+            paymentMethod: "Mastercard (****8888)",
+            items: [
+                { id: "4", name: "Smart Watch", quantity: 1, price: 280.00, image: "/placeholder.jpg" }
+            ],
+            timeline: [
+                { status: "Order Placed", date: "2024-02-03 09:00 AM", completed: true },
+                { status: "Payment Confirmed", date: "2024-02-03 09:15 AM", completed: true },
+                { status: "Processing", date: "2024-02-03 11:00 AM", completed: true },
+                { status: "Shipped", date: "", completed: false },
+                { status: "Delivered", date: "", completed: false }
+            ]
+        },
+        "ORD-7284": {
+            id: "ORD-7284",
+            customer: {
+                name: "William Kim",
+                email: "will@email.com",
+                phone: "+1 (555) 222-3333"
+            },
+            date: "2024-02-04",
+            status: "success",
+            total: 99.00,
+            subtotal: 90.00,
+            tax: 5.00,
+            shipping: 4.00,
+            shippingAddress: {
+                street: "321 Maple Dr",
+                city: "Miami",
+                state: "FL",
+                zip: "33101",
+                country: "USA"
+            },
+            paymentMethod: "Apple Pay",
+            items: [
+                { id: "5", name: "Gaming Mouse", quantity: 1, price: 90.00, image: "/placeholder.jpg" }
+            ],
+            timeline: [
+                { status: "Order Placed", date: "2024-02-04 02:00 PM", completed: true },
+                { status: "Payment Confirmed", date: "2024-02-04 02:10 PM", completed: true },
+                { status: "Processing", date: "2024-02-04 04:00 PM", completed: true },
+                { status: "Shipped", date: "2024-02-05 09:00 AM", completed: true },
+                { status: "Delivered", date: "2024-02-05 02:00 PM", completed: true }
             ]
         }
     };

@@ -54,6 +54,51 @@ const getProductById = (id: string) => {
             revenue: 24360,
             rating: 4.9,
             reviews: 156
+        },
+        "a1b2c3d4": {
+            id: "a1b2c3d4",
+            name: "Minimalist Desk Lamp",
+            description: "Sleek and minimalist LED desk lamp with adjustable brightness and color temperature. Perfect for home offices and reading nooks with its eye-friendly lighting and space-saving design.",
+            price: 45,
+            stock: 45,
+            status: "active",
+            category: "Lighting",
+            sku: "DL-2024-004",
+            image: "/placeholder-product.jpg",
+            sold: 89,
+            revenue: 4005,
+            rating: 4.5,
+            reviews: 28
+        },
+        "f5g6h7i8": {
+            id: "f5g6h7i8",
+            name: "Leather Journal",
+            description: "Handcrafted genuine leather journal with cream-colored acid-free paper. Features a wrap-around tie closure and durable binding, ideal for sketches, notes, and personal reflections.",
+            price: 28,
+            stock: 0,
+            status: "archived",
+            category: "Stationery",
+            sku: "LJ-2024-005",
+            image: "/placeholder-product.jpg",
+            sold: 12,
+            revenue: 336,
+            rating: 4.7,
+            reviews: 15
+        },
+        "j9k0l1m2": {
+            id: "j9k0l1m2",
+            name: "Portable Power Bank",
+            description: "High-capacity 20,000mAh portable power bank with fast charging support. Features dual USB-A and USB-C ports, allowing you to charge multiple devices simultaneously while on the go.",
+            price: 55,
+            stock: 8,
+            status: "active",
+            category: "Electronics",
+            sku: "PB-2024-006",
+            image: "/placeholder-product.jpg",
+            sold: 456,
+            revenue: 25080,
+            rating: 4.8,
+            reviews: 312
         }
     };
     return products[id] || null;

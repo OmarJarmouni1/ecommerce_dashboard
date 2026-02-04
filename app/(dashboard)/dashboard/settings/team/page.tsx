@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { toast } from "@/components/ui/use-toast";
 import { Separator } from "@/components/ui/separator";
 import { Users, Plus, Trash2, Mail, Shield } from "lucide-react";
+import { cn } from "@/lib/utils";
 import {
     Table,
     TableBody,
@@ -194,51 +195,66 @@ export default function TeamSettingsPage() {
                 </CardHeader>
                 <CardContent>
                     <Table>
-                        <TableHeader>
-                            <TableRow>
-                                <TableHead>Name</TableHead>
-                                <TableHead>Email</TableHead>
-                                <TableHead>Role</TableHead>
-                                <TableHead>Status</TableHead>
-                                <TableHead className="text-right">Actions</TableHead>
+                        <TableHeader className="bg-muted/50 border-y border-border">
+                            <TableRow className="hover:bg-transparent border-none">
+                                <TableHead className="h-10 text-[10px] uppercase tracking-widest font-bold text-muted-foreground px-4">Name</TableHead>
+                                <TableHead className="h-10 text-[10px] uppercase tracking-widest font-bold text-muted-foreground px-4">Email</TableHead>
+                                <TableHead className="h-10 text-[10px] uppercase tracking-widest font-bold text-muted-foreground px-4 text-center">Role</TableHead>
+                                <TableHead className="h-10 text-[10px] uppercase tracking-widest font-bold text-muted-foreground px-4 text-center">Status</TableHead>
+                                <TableHead className="h-10 text-[10px] uppercase tracking-widest font-bold text-muted-foreground px-4 text-right">Actions</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
                             {teamMembers.map((member) => (
-                                <TableRow key={member.id}>
-                                    <TableCell className="font-medium">{member.name}</TableCell>
-                                    <TableCell>{member.email}</TableCell>
-                                    <TableCell>
-                                        <Select
-                                            value={member.role}
-                                            onValueChange={(value: "admin" | "manager" | "staff") =>
-                                                handleRoleChange(member.id, value)
-                                            }
-                                            disabled={member.status === "pending"}
-                                        >
-                                            <SelectTrigger className="w-32">
-                                                <SelectValue />
-                                            </SelectTrigger>
-                                            <SelectContent>
-                                                <SelectItem value="admin">Admin</SelectItem>
-                                                <SelectItem value="manager">Manager</SelectItem>
-                                                <SelectItem value="staff">Staff</SelectItem>
-                                            </SelectContent>
-                                        </Select>
+                                <TableRow key={member.id} className="border-b border-border hover:bg-muted/30 transition-colors">
+                                    <TableCell className="px-4 py-3">
+                                        <span className="font-bold text-sm text-foreground">{member.name}</span>
                                     </TableCell>
-                                    <TableCell>
-                                        <Badge variant={getStatusBadgeVariant(member.status)}>
-                                            {member.status}
-                                        </Badge>
+                                    <TableCell className="px-4 py-3">
+                                        <span className="text-muted-foreground font-medium text-xs">{member.email}</span>
                                     </TableCell>
-                                    <TableCell className="text-right">
-                                        <Button
-                                            variant="ghost"
-                                            size="sm"
-                                            onClick={() => handleRemove(member.id)}
-                                        >
-                                            <Trash2 className="h-4 w-4 text-destructive" />
-                                        </Button>
+                                    <TableCell className="px-4 py-3">
+                                        <div className="flex justify-center">
+                                            <Select
+                                                value={member.role}
+                                                onValueChange={(value: "admin" | "manager" | "staff") =>
+                                                    handleRoleChange(member.id, value)
+                                                }
+                                                disabled={member.status === "pending"}
+                                            >
+                                                <SelectTrigger className="w-32 h-8 rounded-none border-border font-bold text-[10px] uppercase tracking-widest">
+                                                    <SelectValue />
+                                                </SelectTrigger>
+                                                <SelectContent className="rounded-none">
+                                                    <SelectItem value="admin" className="text-xs uppercase font-bold tracking-tight">Admin</SelectItem>
+                                                    <SelectItem value="manager" className="text-xs uppercase font-bold tracking-tight">Manager</SelectItem>
+                                                    <SelectItem value="staff" className="text-xs uppercase font-bold tracking-tight">Staff</SelectItem>
+                                                </SelectContent>
+                                            </Select>
+                                        </div>
+                                    </TableCell>
+                                    <TableCell className="px-4 py-3 text-center">
+                                        <div className="flex justify-center">
+                                            <Badge variant={getStatusBadgeVariant(member.status)}
+                                                className={cn(
+                                                    "rounded-none uppercase text-[9px] tracking-widest font-bold",
+                                                    member.status === 'active' ? "bg-blue-600" : "bg-muted text-muted-foreground"
+                                                )}>
+                                                {member.status}
+                                            </Badge>
+                                        </div>
+                                    </TableCell>
+                                    <TableCell className="px-4 py-3 text-right">
+                                        <div className="flex justify-end">
+                                            <Button
+                                                variant="ghost"
+                                                size="sm"
+                                                onClick={() => handleRemove(member.id)}
+                                                className="h-8 w-8 p-0 rounded-none hover:bg-pink-500/10 hover:text-pink-500"
+                                            >
+                                                <Trash2 className="h-4 w-4" />
+                                            </Button>
+                                        </div>
                                     </TableCell>
                                 </TableRow>
                             ))}

@@ -67,7 +67,7 @@ export function DataTable<TData, TValue>({
                             <TableRow key={headerGroup.id} className="hover:bg-transparent border-none">
                                 {headerGroup.headers.map((header) => {
                                     return (
-                                        <TableHead key={header.id} className="h-10 text-[10px] uppercase tracking-widest font-bold text-muted-foreground py-0">
+                                        <TableHead key={header.id} className="h-10 text-[10px] uppercase tracking-widest font-bold text-muted-foreground py-0 px-4">
                                             {header.isPlaceholder
                                                 ? null
                                                 : flexRender(
@@ -108,7 +108,7 @@ export function DataTable<TData, TValue>({
                     </TableBody>
                 </Table>
             </div>
-            <div className="flex items-center justify-between px-6 py-4 border-t border-border bg-card">
+            <div className="flex items-center justify-between px-4 py-4 border-t border-border bg-card">
                 <div className="text-[10px] uppercase tracking-widest font-bold text-muted-foreground">
                     Showing {table.getRowModel().rows.length} of {data.length} products
                 </div>

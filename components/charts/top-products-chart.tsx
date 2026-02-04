@@ -1,72 +1,59 @@
-"use client";
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
 
-import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip, CartesianGrid, Rectangle } from 'recharts';
-
-interface TopProductsChartProps {
-    data: any[];
+interface TopProduct {
+    name: string;
+    sales: number;
+    revenue: number;
+    growth: string;
 }
 
-const CustomActiveBar = (props: any) => {
-    const { x, y, width, height, fill } = props;
-    return (
-        <Rectangle
-            {...props}
-            x={x}
-            y={y}
-            width={width}
-            height={height}
-            fill={fill}
-            fillOpacity={1}
-            radius={[0, 0, 0, 0]}
-        />
-    );
-};
+interface TopProductsChartProps {
+    data: TopProduct[];
+}
 
 export function TopProductsChart({ data }: TopProductsChartProps) {
     return (
-        <div className="h-[350px] w-full">
-            <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={data} layout="vertical" margin={{ top: 5, right: 30, left: 40, bottom: 5 }}>
-                    <defs>
-                        <linearGradient id="barGradient" x1="0" y1="0" x2="1" y2="0">
-                            <stop offset="0%" stopColor="#2563eb" />
-                            <stop offset="100%" stopColor="#ec4899" />
-                        </linearGradient>
-                    </defs>
-                    <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#f1f5f9" />
-                    <XAxis type="number" hide />
-                    <YAxis
-                        dataKey="name"
-                        type="category"
-                        width={150}
-                        tick={{ fontSize: 9, fill: "#94a3b8", fontWeight: 900 }}
-                        interval={0}
-                        axisLine={false}
-                        tickLine={false}
-                    />
-                    <Tooltip
-                        cursor={{ fill: '#f8fafc' }}
-                        contentStyle={{
-                            borderRadius: "0px",
-                            border: "1px solid #f1f5f9",
-                            backgroundColor: "rgba(255,255,255,0.9)",
-                            color: "#18181b",
-                            fontSize: "10px",
-                            fontWeight: "900",
-                            textTransform: "uppercase",
-                            letterSpacing: "0.1em",
-                            boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1)"
-                        }}
-                    />
-                    <Bar
-                        dataKey="sales"
-                        fill="url(#barGradient)"
-                        radius={[0, 0, 0, 0]}
-                        activeBar={<CustomActiveBar />}
-                        barSize={32}
-                    />
-                </BarChart>
-            </ResponsiveContainer>
+        <div className="w-full">
+            <Table>
+                <TableHeader className="bg-muted/30 border-y border-border">
+                    <TableRow className="hover:bg-transparent border-none">
+                        <TableHead className="text-[10px] uppercase tracking-widest font-bold text-muted-foreground px-4 h-10">Product</TableHead>
+                        <TableHead className="text-center text-[10px] uppercase tracking-widest font-bold text-muted-foreground px-4 h-10">Sales</TableHead>
+                        <TableHead className="text-right text-[10px] uppercase tracking-widest font-bold text-muted-foreground px-4 h-10">Revenue</TableHead>
+                        <TableHead className="text-center text-[10px] uppercase tracking-widest font-bold text-muted-foreground px-4 h-10">Trend</TableHead>
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    {data.map((product, idx) => (
+                        <TableRow key={idx} className="border-b border-border hover:bg-muted/30 transition-colors">
+                            <TableCell className="px-4 py-4">
+                                <span className="font-bold text-sm text-foreground">{product.name}</span>
+                            </TableCell>
+                            <TableCell className="text-center px-4 py-4">
+                                <span className="font-mono text-xs font-bold text-muted-foreground">{product.sales}</span>
+                            </TableCell>
+                            <TableCell className="text-right px-4 py-4">
+                                <span className="font-black text-sm text-foreground">${product.revenue.toFixed(2)}</span>
+                            </TableCell>
+                            <TableCell className="text-center px-4 py-4">
+                                <div className="flex justify-center">
+                                    <Badge variant="outline" className="rounded-none uppercase text-[9px] tracking-widest font-bold py-0.5 border-emerald-500/20 bg-emerald-500/5 text-emerald-500">
+                                        {product.growth}
+                                    </Badge>
+                                </div>
+                            </TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
         </div>
     );
 }

@@ -34,43 +34,43 @@ export function RecentOrders({ orders }: RecentOrdersProps) {
             </CardHeader>
             <CardContent className="px-2">
                 <Table>
-                    <TableHeader>
-                        <TableRow className="hover:bg-transparent border-border">
-                            <TableHead className="text-[9px] uppercase tracking-widest font-black text-muted-foreground/60 pl-4">Customer</TableHead>
-                            <TableHead className="text-right text-[9px] uppercase tracking-widest font-black text-muted-foreground/60">Amount</TableHead>
-                            <TableHead className="text-right text-[9px] uppercase tracking-widest font-black text-muted-foreground/60 pr-4">Status</TableHead>
+                    <TableHeader className="bg-muted/50 border-y border-border">
+                        <TableRow className="hover:bg-transparent border-none">
+                            <TableHead className="text-[10px] uppercase tracking-widest font-bold text-muted-foreground px-4 h-10">Customer</TableHead>
+                            <TableHead className="text-right text-[10px] uppercase tracking-widest font-bold text-muted-foreground px-4 h-10">Amount</TableHead>
+                            <TableHead className="text-right text-[10px] uppercase tracking-widest font-bold text-muted-foreground px-4 h-10">Status</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
                         {orders.map((order) => (
-                            <TableRow key={order.id} className="border-border hover:bg-muted/50 transition-colors group">
-                                <TableCell className="pl-4 py-4">
+                            <TableRow key={order.id} className="border-b border-border hover:bg-muted/30 transition-colors group">
+                                <TableCell className="px-4 py-4">
                                     <div className="flex items-center gap-3">
-                                        <div className="relative h-8 w-8 rounded-none overflow-hidden border border-border shadow-sm">
+                                        <div className="relative h-9 w-9 rounded-none overflow-hidden border border-border shadow-sm">
                                             <Avatar className="h-full w-full rounded-none">
                                                 <AvatarImage src={order.customer.avatar} alt={order.customer.name} />
-                                                <AvatarFallback className="rounded-none bg-muted text-[10px] font-black text-muted-foreground">{order.customer.name[0]}</AvatarFallback>
+                                                <AvatarFallback className="rounded-none bg-blue-600/5 text-blue-600 text-[10px] font-bold">{order.customer.name[0]}</AvatarFallback>
                                             </Avatar>
                                         </div>
                                         <div className="flex flex-col">
-                                            <div className="text-xs font-black text-foreground leading-tight">{order.customer.name}</div>
-                                            <div className="text-[9px] font-bold text-muted-foreground/70 uppercase tracking-tighter">{order.customer.email}</div>
+                                            <div className="text-sm font-bold text-foreground leading-tight">{order.customer.name}</div>
+                                            <div className="text-[10px] font-bold text-muted-foreground/70 uppercase tracking-widest">{order.customer.email}</div>
                                         </div>
                                     </div>
                                 </TableCell>
-                                <TableCell className="text-right py-4">
-                                    <div className="text-xs font-black text-foreground">${order.amount.toFixed(2)}</div>
+                                <TableCell className="text-right px-4 py-4">
+                                    <div className="text-sm font-black text-foreground">${order.amount.toFixed(2)}</div>
                                 </TableCell>
-                                <TableCell className="text-right py-4 pr-4">
+                                <TableCell className="text-right px-4 py-4">
                                     <div className="flex items-center justify-end gap-2">
                                         <div className={cn(
                                             "h-1.5 w-1.5 rounded-full",
-                                            order.status === 'success' ? "bg-blue-600" :
-                                                order.status === 'processing' ? "bg-pink-500 shadow-[0_0_8px_rgba(236,72,153,0.5)]" :
-                                                    "bg-muted"
+                                            order.status === 'success' ? "bg-blue-600 shadow-[0_0_8px_rgba(37,99,235,0.4)]" :
+                                                order.status === 'processing' ? "bg-pink-500 shadow-[0_0_8px_rgba(236,72,153,0.4)]" :
+                                                    "bg-muted/50"
                                         )} />
                                         <span className={cn(
-                                            "text-[9px] font-black uppercase tracking-widest",
+                                            "text-[9px] font-bold uppercase tracking-widest",
                                             order.status === 'success' ? "text-blue-600" :
                                                 order.status === 'processing' ? "text-pink-600" :
                                                     "text-muted-foreground"

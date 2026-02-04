@@ -33,46 +33,44 @@ export const columns: ColumnDef<Product>[] = [
     {
         id: "select",
         header: ({ table }) => (
-            <div className="px-1">
-                <Checkbox
-                    checked={table.getIsAllPageRowsSelected()}
-                    onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-                    aria-label="Select all"
-                    className="rounded-none border-muted-foreground/50 data-[state=checked]:bg-blue-600 data-[state=checked]:border-blue-600"
-                />
-            </div>
+            <Checkbox
+                checked={table.getIsAllPageRowsSelected()}
+                onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+                aria-label="Select all"
+                className="rounded-none border-muted-foreground/50 data-[state=checked]:bg-blue-600 data-[state=checked]:border-blue-600"
+            />
         ),
         cell: ({ row }) => (
-            <div className="px-1">
-                <Checkbox
-                    checked={row.getIsSelected()}
-                    onCheckedChange={(value) => row.toggleSelected(!!value)}
-                    aria-label="Select row"
-                    className="rounded-none border-muted-foreground/50 data-[state=checked]:bg-blue-600 data-[state=checked]:border-blue-600"
-                />
-            </div>
+            <Checkbox
+                checked={row.getIsSelected()}
+                onCheckedChange={(value) => row.toggleSelected(!!value)}
+                aria-label="Select row"
+                className="rounded-none border-muted-foreground/50 data-[state=checked]:bg-blue-600 data-[state=checked]:border-blue-600"
+            />
         ),
         enableSorting: false,
         enableHiding: false,
     },
     {
         accessorKey: "image",
-        header: "Image",
+        header: () => <div className="text-[10px] uppercase tracking-widest font-bold text-center">Image</div>,
         cell: ({ row }) => {
             return (
-                <div className="relative h-12 w-12 overflow-hidden rounded-none border border-border bg-muted">
-                    {row.original.image ? (
-                        <Image
-                            src={row.original.image}
-                            alt={row.original.name}
-                            fill
-                            className="object-cover"
-                        />
-                    ) : (
-                        <div className="flex h-full w-full items-center justify-center text-xs opacity-30">
-                            IMG
-                        </div>
-                    )}
+                <div className="flex justify-center">
+                    <div className="relative h-12 w-12 overflow-hidden rounded-none border border-border bg-muted">
+                        {row.original.image ? (
+                            <Image
+                                src={row.original.image}
+                                alt={row.original.name}
+                                fill
+                                className="object-cover"
+                            />
+                        ) : (
+                            <div className="flex h-full w-full items-center justify-center text-xs opacity-30">
+                                IMG
+                            </div>
+                        )}
+                    </div>
                 </div>
             )
         }
@@ -98,16 +96,18 @@ export const columns: ColumnDef<Product>[] = [
     },
     {
         accessorKey: "category",
-        header: () => <span className="text-[10px] uppercase tracking-widest font-bold">Category</span>,
+        header: () => <div className="text-[10px] uppercase tracking-widest font-bold text-center">Category</div>,
         cell: ({ row }) => (
-            <Badge variant="outline" className="rounded-none text-[9px] uppercase tracking-widest font-bold border-blue-600/20 bg-blue-600/5 text-blue-600">
-                {row.original.category}
-            </Badge>
+            <div className="flex justify-center">
+                <Badge variant="outline" className="rounded-none text-[9px] uppercase tracking-widest font-bold border-blue-600/20 bg-blue-600/5 text-blue-600">
+                    {row.original.category}
+                </Badge>
+            </div>
         )
     },
     {
         accessorKey: "stock",
-        header: () => <span className="text-[10px] uppercase tracking-widest font-bold">Stock</span>,
+        header: () => <div className="text-[10px] uppercase tracking-widest font-bold text-center">Stock</div>,
         cell: ({ row }) => {
             const stock = row.original.stock
             let status = { label: "In Stock", color: "text-emerald-500 bg-emerald-500/10 border-emerald-500/20" }
@@ -115,7 +115,7 @@ export const columns: ColumnDef<Product>[] = [
             else if (stock < 10) status = { label: "Low Stock", color: "text-amber-500 bg-amber-500/10 border-amber-500/20" }
 
             return (
-                <div className="flex flex-col gap-1">
+                <div className="flex flex-col items-center gap-1">
                     <span className="font-mono text-xs font-bold">{stock}</span>
                     <Badge className={cn("rounded-none text-[8px] uppercase tracking-widest font-bold px-1.5 py-0", status.color)}>
                         {status.label}
@@ -127,14 +127,16 @@ export const columns: ColumnDef<Product>[] = [
     {
         accessorKey: "price",
         header: ({ column }) => (
-            <Button
-                variant="ghost"
-                className="text-[10px] uppercase tracking-widest font-bold px-0 hover:bg-transparent"
-                onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-            >
-                Price
-                <ArrowUpDown className="ml-2 h-3 w-3" />
-            </Button>
+            <div className="text-right">
+                <Button
+                    variant="ghost"
+                    className="text-[10px] uppercase tracking-widest font-bold px-0 hover:bg-transparent"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                >
+                    <ArrowUpDown className="mr-2 h-3 w-3" />
+                    Price
+                </Button>
+            </div>
         ),
         cell: ({ row }) => {
             const price = row.original.price
@@ -162,23 +164,25 @@ export const columns: ColumnDef<Product>[] = [
     },
     {
         accessorKey: "status",
-        header: () => <span className="text-[10px] uppercase tracking-widest font-bold">Status</span>,
+        header: () => <div className="text-[10px] uppercase tracking-widest font-bold text-center">Status</div>,
         cell: ({ row }) => {
             const status = row.original.status
             return (
-                <Badge variant={status === "active" ? "default" : "secondary"}
-                    className={cn(
-                        "rounded-none text-[9px] uppercase tracking-widest font-bold",
-                        status === "active" ? "bg-blue-600" : "bg-muted text-muted-foreground"
-                    )}>
-                    {status}
-                </Badge>
+                <div className="flex justify-center">
+                    <Badge variant={status === "active" ? "default" : "secondary"}
+                        className={cn(
+                            "rounded-none text-[9px] uppercase tracking-widest font-bold",
+                            status === "active" ? "bg-blue-600" : "bg-muted text-muted-foreground"
+                        )}>
+                        {status}
+                    </Badge>
+                </div>
             )
         }
     },
     {
         accessorKey: "sales",
-        header: () => <span className="text-[10px] uppercase tracking-widest font-bold text-right w-full">Sales</span>,
+        header: () => <div className="text-[10px] uppercase tracking-widest font-bold text-right">Sales</div>,
         cell: ({ row }) => (
             <div className="text-right font-mono text-xs font-bold text-muted-foreground">
                 {row.original.sales}
@@ -187,34 +191,37 @@ export const columns: ColumnDef<Product>[] = [
     },
     {
         id: "actions",
+        header: () => <div className="text-[10px] uppercase tracking-widest font-bold text-right">Actions</div>,
         cell: ({ row }) => {
             const payment = row.original
 
             return (
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="h-8 w-8 p-0">
-                            <span className="sr-only">Open menu</span>
-                            <MoreHorizontal className="h-4 w-4" />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" className="rounded-none">
-                        <DropdownMenuLabel className="text-[10px] uppercase tracking-widest font-bold">Actions</DropdownMenuLabel>
-                        <DropdownMenuItem
-                            onClick={() => window.location.href = `/dashboard/products/${payment.id}`}
-                            className="rounded-none font-bold text-xs cursor-pointer"
-                        >
-                            View Details
-                        </DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem
-                            onClick={() => navigator.clipboard.writeText(payment.id)}
-                            className="rounded-none text-xs"
-                        >
-                            Copy Product ID
-                        </DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
+                <div className="flex justify-end">
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button variant="ghost" className="h-8 w-8 p-0">
+                                <span className="sr-only">Open menu</span>
+                                <MoreHorizontal className="h-4 w-4" />
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end" className="rounded-none">
+                            <DropdownMenuLabel className="text-[10px] uppercase tracking-widest font-bold">Actions</DropdownMenuLabel>
+                            <DropdownMenuItem
+                                onClick={() => window.location.href = `/dashboard/products/${payment.id}`}
+                                className="rounded-none font-bold text-xs cursor-pointer"
+                            >
+                                View Details
+                            </DropdownMenuItem>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuItem
+                                onClick={() => navigator.clipboard.writeText(payment.id)}
+                                className="rounded-none text-xs"
+                            >
+                                Copy Product ID
+                            </DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                </div>
             )
         },
     },

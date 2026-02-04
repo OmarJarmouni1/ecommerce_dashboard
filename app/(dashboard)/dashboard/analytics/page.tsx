@@ -26,11 +26,11 @@ export default function AnalyticsPage() {
     ];
 
     const topProductsData = [
-        { name: 'Wireless Headphones', sales: 120 },
-        { name: 'Ergonomic Chair', sales: 98 },
-        { name: 'Mechanical Keyboard', sales: 86 },
-        { name: 'Smart Watch', sales: 72 },
-        { name: 'Gaming Mouse', sales: 65 },
+        { name: 'Wireless Headphones', sales: 120, revenue: 11988.00, growth: '+12%' },
+        { name: 'Ergonomic Chair', sales: 98, revenue: 19502.00, growth: '+8%' },
+        { name: 'Mechanical Keyboard', sales: 86, revenue: 8514.00, growth: '+15%' },
+        { name: 'Smart Watch', sales: 72, revenue: 14328.00, growth: '+5%' },
+        { name: 'Gaming Mouse', sales: 65, revenue: 3243.50, growth: '+22%' },
     ];
 
     return (

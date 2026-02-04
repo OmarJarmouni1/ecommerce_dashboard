@@ -31,16 +31,23 @@ export function Sidebar() {
     const pathname = usePathname();
 
     return (
-        <aside className="fixed inset-y-0 left-0 z-10 hidden w-64 flex-col border-r bg-sidebar text-foreground md:flex">
+        <aside className="fixed inset-y-0 left-0 z-10s hidden w-64 flex-col border-r bg-sidebar text-foreground md:flex">
             <div className="flex h-16 items-center px-6">
                 <Link href="/dashboard" className="flex items-center gap-2">
 
-                    <div className="relative h-30 w-50 right-11">
+                    <div className="relative h-20 w-30 right-2">
                         <Image
                             src="/images/logo.png"
                             alt="RMKO Logo"
                             fill
-                            className="object-contain"
+                            className="object-contain dark:hidden"
+                            priority
+                        />
+                        <Image
+                            src="/images/logo-dark.png"
+                            alt="RMKO Logo"
+                            fill
+                            className="object-contain hidden dark:block"
                             priority
                         />
                     </div>
@@ -49,7 +56,9 @@ export function Sidebar() {
 
             <nav className="flex-1 py-6 space-y-1">
                 {navItems.map(({ href, icon: Icon, label }) => {
-                    const isActive = pathname === href || pathname.startsWith(`${href}/`);
+                    const isActive = href === "/dashboard"
+                        ? pathname === href
+                        : pathname === href || pathname.startsWith(`${href}/`);
                     return (
                         <Link
                             key={href}
