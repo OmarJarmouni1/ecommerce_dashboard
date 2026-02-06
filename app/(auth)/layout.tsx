@@ -8,10 +8,10 @@ export default function AuthLayout({
     children: React.ReactNode;
 }) {
     return (
-        <div className="grid h-screen overflow-hidden grid-cols-1 lg:grid-cols-2">
+        <div className="grid min-h-screen lg:h-screen lg:overflow-hidden grid-cols-1 lg:grid-cols-2">
             {/* Form Section (Left) */}
-            <div className="flex flex-col p-8 lg:py-12 lg:px-24 bg-background relative overflow-y-auto lg:overflow-hidden">
-                <div className="flex flex-col h-full max-w-[450px] w-full mx-auto lg:mx-0">
+            <div className="flex flex-col p-6 sm:p-8 lg:py-12 lg:px-24 bg-background relative overflow-y-auto">
+                <div className="flex flex-col h-full max-w-[450px] w-full mx-auto lg:mx-0 py-8 lg:py-0">
 
                     {/* Form Container */}
                     <div className="flex-1">

@@ -5,8 +5,9 @@ import { Badge } from "@/components/ui/badge";
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
-type Order = {
+export type Order = {
     id: string;
     customer: string;
     email: string;
@@ -15,6 +16,40 @@ type Order = {
     date: string;
     items: number;
     paymentMethod: "visa" | "mastercard" | "paypal" | "apple-pay";
+}
+
+function OrderMobileCard({ order }: { order: Order }) {
+    const amount = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(order.total);
+    return (
+        <Link href={`/dashboard/orders/${order.id}`}>
+            <div className="p-4 bg-card border border-border rounded-none active:bg-muted/50 transition-colors">
+                <div className="flex justify-between items-start mb-2">
+                    <div>
+                        <div className="font-bold text-foreground text-base">#{order.id}</div>
+                        <div className="text-sm text-muted-foreground font-bold">{order.date}</div>
+                    </div>
+                    <div className="text-right">
+                        <div className="text-xl font-black text-foreground">{amount}</div>
+                        <div className="text-sm text-muted-foreground font-bold">{order.items} items</div>
+                    </div>
+                </div>
+                <div className="text-sm font-bold text-foreground mb-2">{order.customer}</div>
+                <div className="flex gap-2 flex-wrap">
+                    <Badge
+                        variant={order.status === "success" ? "default" : "secondary"}
+                        className={cn(
+                            "rounded-none uppercase text-[9px] tracking-widest font-bold px-2",
+                            order.status === "success" ? "bg-blue-600" :
+                                order.status === "processing" ? "bg-pink-500 text-white" :
+                                    "bg-muted text-muted-foreground"
+                        )}
+                    >
+                        {order.status}
+                    </Badge>
+                </div>
+            </div>
+        </Link>
+    );
 }
 
 const columns: ColumnDef<Order>[] = [
@@ -114,9 +149,14 @@ const data: Order[] = [
 
 export default function OrdersPage() {
     return (
-        <div className="space-y-6">
-            <h1 className="text-3xl font-black text-foreground tracking-tight uppercase">Orders</h1>
-            <DataTable columns={columns} data={data} searchKey="customer" />
+        <div className="space-y-6 pb-24 md:pb-8">
+            <h1 className="text-2xl sm:text-3xl font-black text-foreground tracking-tight uppercase">Orders</h1>
+            <DataTable
+                columns={columns}
+                data={data}
+                searchKey="customer"
+                renderMobileCard={(order) => <OrderMobileCard order={order} />}
+            />
         </div>
     );
 }

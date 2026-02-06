@@ -34,22 +34,21 @@ export default function AnalyticsPage() {
     ];
 
     return (
-        <div className="space-y-10">
-            {/* Greet Section */}
+        <div className="space-y-6 md:space-y-10">
             <div className="flex flex-col">
-                <h2 className="text-5xl lg:text-7xl font-extralight text-pink-500 tracking-tight leading-none">Hello,</h2>
-                <h1 className="text-5xl lg:text-7xl font-black text-pink-600 tracking-tighter leading-tight mt-1">Analytics!</h1>
-                <p className="text-muted-foreground font-bold uppercase tracking-[0.3em] text-[10px] mt-4 ml-1">Deep insights into your store performance</p>
+                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-extralight text-pink-500 tracking-tight leading-none">Hello,</h2>
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-black text-pink-600 tracking-tighter leading-tight mt-1">Analytics!</h1>
+                <p className="text-muted-foreground font-bold uppercase tracking-[0.2em] sm:tracking-[0.3em] text-[10px] mt-3 md:mt-4 ml-1">Deep insights into your store performance</p>
             </div>
 
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-7">
-                <div className="lg:col-span-4 rounded-none border border-border bg-card p-6 shadow-sm overflow-hidden relative">
+            <div className="grid gap-4 md:gap-6 grid-cols-1 lg:grid-cols-7">
+                <div className="lg:col-span-4 rounded-none border border-border bg-card p-4 md:p-6 shadow-sm overflow-hidden relative min-w-0">
                     {/* Subtle geometric accent */}
                     <div className="absolute -top-24 -right-24 w-64 h-64 bg-pink-500/10 rounded-full blur-3xl opacity-50" />
                     <SalesChart data={salesData} />
                 </div>
 
-                <Card className="lg:col-span-3 rounded-none border-border shadow-sm relative overflow-hidden bg-card">
+                <Card className="lg:col-span-3 rounded-none border-border shadow-sm relative overflow-hidden bg-card min-w-0">
                     <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-600" />
                     <CardHeader className="pl-6 pt-6 pb-2">
                         <CardTitle className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Category Distribution</CardTitle>
@@ -60,7 +59,7 @@ export default function AnalyticsPage() {
                 </Card>
             </div>
 
-            <div className="grid gap-6">
+            <div className="grid gap-4 md:gap-6 min-w-0">
                 <Card className="rounded-none border-border shadow-sm relative overflow-hidden bg-card">
                     <div className="absolute left-0 top-0 bottom-0 w-1 bg-pink-500" />
                     <CardHeader className="pl-6 pt-6 pb-2">

@@ -314,31 +314,31 @@ export function ProductForm() {
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-12 pb-32">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-12 pb-24 md:pb-32">
                 {/* --- Sticky Header --- */}
-                <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-border pb-6 sticky top-0 bg-background/80 backdrop-blur-md z-50 pt-2">
-                    <div className="flex items-center gap-4">
+                <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-border pb-6 sticky top-0 bg-background/95 backdrop-blur-md z-40 pt-4 px-1">
+                    <div className="flex items-center gap-3 sm:gap-4 w-full md:w-auto">
                         <Link href="/dashboard/products">
-                            <Button variant="outline" size="icon" className="h-10 w-10 rounded-none border-border group">
-                                <ChevronLeft className="h-5 w-5 group-hover:-translate-x-1 transition-transform" />
+                            <Button variant="outline" size="icon" className="h-10 w-10 min-h-[44px] min-w-[44px] sm:h-10 sm:w-10 rounded-none border-border group">
+                                <ChevronLeft className="h-4 w-4 sm:h-5 sm:w-5 group-hover:-translate-x-1 transition-transform" />
                             </Button>
                         </Link>
-                        <div>
-                            <h1 className="text-3xl font-black uppercase tracking-tighter">New Product</h1>
-                            <div className="flex items-center gap-2 mt-1">
-                                <div className="h-2 w-2 rounded-full bg-amber-500 animate-pulse" />
-                                <span className="text-[10px] uppercase font-black tracking-widest text-muted-foreground">Draft Mode</span>
+                        <div className="min-w-0 flex-1">
+                            <h1 className="text-xl sm:text-2xl lg:text-3xl font-black uppercase tracking-tighter truncate">New Product</h1>
+                            <div className="flex items-center gap-2 mt-0.5 sm:mt-1">
+                                <div className="h-1.5 w-1.5 sm:h-2 sm:w-2 rounded-full bg-amber-500 animate-pulse shrink-0" />
+                                <span className="text-[8px] sm:text-[10px] uppercase font-black tracking-widest text-muted-foreground">Draft Mode</span>
                             </div>
                         </div>
                     </div>
-                    <div className="flex items-center gap-3">
-                        <Button type="button" variant="ghost" className="rounded-none text-[10px] uppercase font-black tracking-widest text-muted-foreground hover:bg-transparent hover:text-foreground">
-                            Preview Storefront
+                    <div className="hidden md:flex items-center gap-2 sm:gap-3 overflow-x-auto pb-2 scrollbar-hide">
+                        <Button type="button" variant="ghost" className="rounded-none text-[8px] sm:text-[10px] uppercase font-black tracking-widest text-muted-foreground hover:bg-transparent hover:text-foreground whitespace-nowrap px-2">
+                            Preview
                         </Button>
                         <Button
                             type="button"
                             variant="outline"
-                            className="rounded-none border-border font-black text-[10px] uppercase tracking-widest h-11 px-8"
+                            className="rounded-none border-border font-black text-[8px] sm:text-[10px] uppercase tracking-widest h-9 sm:h-11 px-4 sm:px-8 whitespace-nowrap"
                             onClick={() => {
                                 form.setValue('status', 'draft');
                                 form.handleSubmit(onSubmit)();
@@ -349,25 +349,37 @@ export function ProductForm() {
                         <Button
                             disabled={loading}
                             type="submit"
-                            className="rounded-none bg-blue-600 hover:bg-blue-700 font-black text-[10px] uppercase tracking-widest h-11 px-10 border-none shadow-[0_0_20px_rgba(37,99,235,0.2)]"
+                            className="rounded-none bg-blue-600 hover:bg-blue-700 font-black text-[8px] sm:text-[10px] uppercase tracking-widest h-9 sm:h-11 px-6 sm:px-10 border-none shadow-[0_0_20px_rgba(37,99,235,0.2)] whitespace-nowrap"
                         >
-                            {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
-                            Publish Product
+                            {loading ? <Loader2 className="mr-1.5 h-3 w-3 sm:h-4 sm:w-4 animate-spin" /> : <Save className="mr-1.5 h-3 w-3 sm:h-4 sm:w-4" />}
+                            Publish
                         </Button>
                     </div>
                 </div>
 
-                <div className="flex flex-col lg:flex-row gap-12 items-start">
+                <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start">
                     {/* --- Sidebar Navigation --- */}
-                    <aside className="w-full lg:w-64 shrink-0 lg:sticky lg:top-24">
-                        <nav className="flex flex-col gap-1 p-1 bg-muted/30 border border-border">
+                    <aside className="w-full lg:w-64 shrink-0 lg:sticky lg:top-28 z-30">
+                        <nav className="flex flex-row lg:flex-col gap-1 p-1 bg-muted/30 border border-border overflow-x-auto scrollbar-hide lg:overflow-visible">
                             {navItems.map((item) => (
                                 <button
                                     key={item.id}
                                     type="button"
                                     onClick={() => {
                                         setActiveSection(item.id);
-                                        document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                        const el = document.getElementById(item.id);
+                                        if (el) {
+                                            const offset = 120;
+                                            const bodyRect = document.body.getBoundingClientRect().top;
+                                            const elementRect = el.getBoundingClientRect().top;
+                                            const elementPosition = elementRect - bodyRect;
+                                            const offsetPosition = elementPosition - offset;
+
+                                            window.scrollTo({
+                                                top: offsetPosition,
+                                                behavior: 'smooth'
+                                            });
+                                        }
                                     }}
                                     className={cn(
                                         "flex items-center gap-3 px-5 py-4 text-[10px] uppercase font-black tracking-widest transition-all",
@@ -532,7 +544,7 @@ export function ProductForm() {
                                         />
                                     </div>
 
-                                    <div className="grid grid-cols-3 gap-6 pt-10 border-t-2 border-border border-dashed">
+                                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-10 border-t-2 border-border border-dashed">
                                         <div className="flex flex-col gap-2">
                                             <span className="text-[10px] uppercase font-black text-muted-foreground">Status</span>
                                             <Badge className="bg-emerald-500 text-white rounded-none uppercase text-[9px] font-black w-fit px-3 py-1">Profitable</Badge>
@@ -577,7 +589,7 @@ export function ProductForm() {
                                     </div>
 
                                     {mediaFields.length > 0 && (
-                                        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6">
                                             {mediaFields.map((field, idx) => (
                                                 <div key={field.id} className={cn("aspect-square border-2 relative group overflow-hidden", form.watch(`media.${idx}.isPrimary`) ? "border-blue-600 shadow-xl" : "border-border")}>
                                                     <img src={form.watch(`media.${idx}.url`)} className="h-full w-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" />
@@ -674,7 +686,7 @@ export function ProductForm() {
 
                                             {variantFields.length > 0 && (
                                                 <div className="pt-10 border-t-2 border-border scrollbar-hide overflow-x-auto">
-                                                    <table className="w-full border-2 border-border border-collapse min-w-[800px]">
+                                                    <table className="w-full border-2 border-border border-collapse min-w-[600px]">
                                                         <thead>
                                                             <tr className="bg-muted text-[10px] uppercase font-black tracking-[0.2em]">
                                                                 <th className="p-6 text-left">Variant Property</th>
@@ -713,7 +725,7 @@ export function ProductForm() {
                     </main>
 
                     {/* --- Right Sidebar Metadata --- */}
-                    <aside className="w-full lg:w-96 shrink-0 space-y-8 lg:sticky lg:top-24">
+                    <aside className="w-full lg:w-96 shrink-0 space-y-8 order-first lg:order-none lg:sticky lg:top-24">
                         <Card className="rounded-none border-2 border-border overflow-hidden bg-[#0a0a0a] text-white">
                             <CardHeader className="border-b-2 border-white/10 p-6 flex flex-row items-center justify-between">
                                 <CardTitle className="text-[10px] uppercase font-black tracking-[0.3em]">System Telemetry</CardTitle>
@@ -763,6 +775,23 @@ export function ProductForm() {
                             </CardContent>
                         </Card>
                     </aside>
+                </div>
+
+                {/* Mobile sticky bottom bar */}
+                <div className="fixed bottom-0 left-0 right-0 z-50 flex gap-3 p-4 bg-background border-t border-border md:hidden">
+                    <Link href="/dashboard/products" className="flex-1">
+                        <Button type="button" variant="outline" className="w-full rounded-none border-border h-12 font-black text-[10px] uppercase tracking-widest">
+                            Cancel
+                        </Button>
+                    </Link>
+                    <Button
+                        disabled={loading}
+                        type="submit"
+                        className="flex-1 rounded-none bg-blue-600 hover:bg-blue-700 h-12 font-black text-[10px] uppercase tracking-widest"
+                    >
+                        {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
+                        Save
+                    </Button>
                 </div>
             </form>
         </Form>

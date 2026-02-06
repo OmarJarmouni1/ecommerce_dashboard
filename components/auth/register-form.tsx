@@ -46,13 +46,20 @@ export function RegisterForm() {
                         src="/images/logo.png"
                         alt="RMKO Logo"
                         fill
-                        className="object-contain"
+                        className="object-contain dark:hidden"
+                        priority
+                    />
+                    <Image
+                        src="/images/logo-dark.png"
+                        alt="RMKO Logo"
+                        fill
+                        className="object-contain hidden dark:block"
                         priority
                     />
                 </div>
                 <div className="flex flex-col">
-                    <h2 className="text-4xl lg:text-6xl font-extralight text-pink-500 tracking-tight leading-none">Join,</h2>
-                    <h2 className="text-4xl lg:text-6xl font-black text-pink-600 tracking-tighter leading-tight">RMKO!</h2>
+                    <h2 className="text-4xl sm:text-5xl lg:text-7xl font-extralight text-pink-500 tracking-tight leading-none">Join,</h2>
+                    <h1 className="text-4xl sm:text-5xl lg:text-7xl font-black text-pink-600 tracking-tighter leading-tight mt-1">RMKO!</h1>
                 </div>
             </div>
 
@@ -61,7 +68,7 @@ export function RegisterForm() {
                     {/* Blue Accent Bar */}
                     <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-blue-600 z-10" />
 
-                    <div className="grid grid-cols-2 divide-x divide-border">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-border">
                         <div className="p-4 pl-8 space-y-1 bg-card">
                             <Label htmlFor="firstName" className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">First Name</Label>
                             <input

@@ -1,5 +1,6 @@
 "use client"
 
+import * as React from "react"
 import { ColumnDef } from "@tanstack/react-table"
 import { Badge } from "@/components/ui/badge"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -194,6 +195,13 @@ export const columns: ColumnDef<Product>[] = [
         header: () => <div className="text-[10px] uppercase tracking-widest font-bold text-right">Actions</div>,
         cell: ({ row }) => {
             const payment = row.original
+            const [mounted, setMounted] = React.useState(false)
+
+            React.useEffect(() => {
+                setMounted(true)
+            }, [])
+
+            if (!mounted) return <div className="h-8 w-8" />
 
             return (
                 <div className="flex justify-end">

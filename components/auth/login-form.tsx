@@ -51,13 +51,20 @@ export function LoginForm() {
                         src="/images/logo.png"
                         alt="RMKO Logo"
                         fill
-                        className="object-contain"
+                        className="object-contain dark:hidden"
+                        priority
+                    />
+                    <Image
+                        src="/images/logo-dark.png"
+                        alt="RMKO Logo"
+                        fill
+                        className="object-contain hidden dark:block"
                         priority
                     />
                 </div>
                 <div className="flex flex-col">
-                    <h2 className="text-4xl lg:text-6xl font-extralight text-blue-500 tracking-tight leading-none">Hello,</h2>
-                    <h2 className="text-4xl lg:text-6xl font-black text-blue-600 tracking-tighter leading-tight">welcome!</h2>
+                    <h2 className="text-4xl sm:text-5xl lg:text-7xl font-extralight text-blue-500 tracking-tight leading-none">Hello,</h2>
+                    <h1 className="text-4xl sm:text-5xl lg:text-7xl font-black text-blue-600 tracking-tighter leading-tight mt-1">welcome!</h1>
                 </div>
             </div>
 

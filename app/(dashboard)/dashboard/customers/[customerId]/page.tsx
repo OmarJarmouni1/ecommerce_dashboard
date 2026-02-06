@@ -99,26 +99,28 @@ export default function CustomerDetailPage() {
     }
 
     return (
-        <div className="space-y-6">
-            {/* Header */}
-            <div className="flex items-center gap-4">
-                <Button variant="ghost" size="icon" onClick={() => router.back()} className="rounded-none">
+        <div className="space-y-6 pb-24 md:pb-8">
+            {/* Header - stack on mobile */}
+            <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+                <Button variant="ghost" size="icon" onClick={() => router.back()} className="rounded-none h-10 w-10 min-h-[44px] min-w-[44px] self-start">
                     <ChevronLeft className="h-4 w-4" />
                 </Button>
-                <Avatar className="h-12 w-12 rounded-none border border-border">
-                    <AvatarFallback className="rounded-none bg-blue-600/5 text-blue-600 font-black">{customer.name[0]}</AvatarFallback>
-                </Avatar>
-                <div className="flex-1">
-                    <h1 className="text-3xl font-black text-foreground tracking-tight uppercase">{customer.name}</h1>
-                    <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold mt-1">ID: {customer.id}</p>
+                <div className="flex items-center gap-3 sm:gap-4 flex-1 min-w-0">
+                    <Avatar className="h-12 w-12 sm:h-14 sm:w-14 md:h-12 md:w-12 rounded-none border border-border shrink-0">
+                        <AvatarFallback className="rounded-none bg-blue-600/5 text-blue-600 font-black">{customer.name[0]}</AvatarFallback>
+                    </Avatar>
+                    <div className="min-w-0 flex-1">
+                        <h1 className="text-2xl sm:text-3xl font-black text-foreground tracking-tight uppercase truncate">{customer.name}</h1>
+                        <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold mt-1">ID: {customer.id}</p>
+                    </div>
+                    <Badge variant="default" className="rounded-none uppercase text-[10px] tracking-widest font-bold bg-blue-600 shrink-0">
+                        {customer.status}
+                    </Badge>
                 </div>
-                <Badge variant="default" className="rounded-none uppercase text-[10px] tracking-widest font-bold bg-blue-600">
-                    {customer.status}
-                </Badge>
             </div>
 
-            {/* Contact Info */}
-            <div className="grid gap-6 md:grid-cols-2">
+            {/* Contact Info - 1 col mobile, 2 desktop */}
+            <div className="grid gap-6 grid-cols-1 md:grid-cols-2">
                 <Card className="rounded-none border-border bg-card relative overflow-hidden">
                     <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-600" />
                     <CardHeader className="pl-6 pt-6 pb-2">
@@ -173,8 +175,8 @@ export default function CustomerDetailPage() {
                 </Card>
             </div>
 
-            {/* Stats */}
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            {/* Stats - 1 col mobile, 2 tablet, 4 desktop */}
+            <div className="grid gap-4 md:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
                 <Card className="rounded-none border-border bg-card relative overflow-hidden">
                     <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-600 opacity-20" />
                     <CardHeader className="pl-6">
@@ -236,12 +238,16 @@ export default function CustomerDetailPage() {
                 <CardContent className="pt-6 pb-6">
                     <div className="space-y-4">
                         {customer.recentOrders.map((order: any) => (
-                            <div key={order.id} className="flex items-center justify-between p-4 border border-border rounded-none hover:bg-muted/50 transition-colors group cursor-pointer" onClick={() => router.push(`/dashboard/orders/${order.id}`)}>
-                                <div className="flex flex-col">
+                            <div
+                                key={order.id}
+                                className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-3 md:p-4 border border-border rounded-none hover:bg-muted/50 transition-colors group cursor-pointer min-h-[44px]"
+                                onClick={() => router.push(`/dashboard/orders/${order.id}`)}
+                            >
+                                <div className="flex flex-col min-w-0">
                                     <p className="text-sm font-black text-foreground uppercase tracking-tight">#{order.id}</p>
                                     <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">{new Date(order.date).toLocaleDateString()}</p>
                                 </div>
-                                <div className="flex items-center gap-6">
+                                <div className="flex items-center gap-4 sm:gap-6">
                                     <p className="text-sm font-black text-foreground tracking-tight">${order.total.toFixed(2)}</p>
                                     <Badge variant="default" className="rounded-none uppercase text-[9px] tracking-widest font-bold bg-blue-600 min-w-20 justify-center">
                                         {order.status}

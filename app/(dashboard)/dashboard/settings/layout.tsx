@@ -8,11 +8,11 @@ export default function SettingsLayout({
     children: React.ReactNode;
 }) {
     return (
-        <div className="flex h-full flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0">
-            <div className="flex flex-1 lg:max-w-7xl mx-auto w-full">
-                <div className="flex w-full flex-col lg:flex-row h-[calc(100vh-4rem)] overflow-hidden">
-                    <SettingsSidebar />
-                    <div className="flex-1 overflow-y-auto p-6 md:p-8">
+        <div className="flex flex-col h-full">
+            <div className="flex-1 lg:max-w-7xl mx-auto w-full">
+                <div className="flex flex-col lg:flex-row min-h-full">
+                    <SettingsSidebar className="sticky top-0 lg:top-auto z-20" />
+                    <div className="flex-1 p-4 sm:p-6 md:p-8">
                         {children}
                     </div>
                 </div>

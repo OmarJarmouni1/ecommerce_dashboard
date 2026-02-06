@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { ChevronLeft, Package, DollarSign, MapPin, Calendar, User, CreditCard } from 'lucide-react';
+import { ChevronLeft, Package, DollarSign, MapPin, Calendar, User, CreditCard, Phone } from 'lucide-react';
 
 // Mock order data
 const getOrderById = (id: string) => {
@@ -170,25 +170,25 @@ export default function OrderDetailPage() {
     };
 
     return (
-        <div className="space-y-6">
-            {/* Header */}
-            <div className="flex items-center gap-4">
-                <Button variant="ghost" size="icon" onClick={() => router.back()} className="rounded-none">
+        <div className="space-y-6 pb-24 md:pb-8">
+            {/* Header - stack on mobile */}
+            <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+                <Button variant="ghost" size="icon" onClick={() => router.back()} className="rounded-none h-10 w-10 min-h-[44px] min-w-[44px] self-start">
                     <ChevronLeft className="h-4 w-4" />
                 </Button>
-                <div className="flex-1">
-                    <h1 className="text-3xl font-black text-foreground tracking-tight">Order {order.id}</h1>
+                <div className="flex-1 min-w-0">
+                    <h1 className="text-2xl sm:text-3xl font-black text-foreground tracking-tight">Order {order.id}</h1>
                     <p className="text-xs uppercase tracking-widest text-muted-foreground font-bold mt-1">
                         Placed on {new Date(order.date).toLocaleDateString()}
                     </p>
                 </div>
-                <Badge variant="default" className={`rounded-none uppercase text-[10px] tracking-widest font-bold ${getStatusColor(order.status)}`}>
+                <Badge variant="default" className={`rounded-none uppercase text-[10px] tracking-widest font-bold w-fit ${getStatusColor(order.status)}`}>
                     {order.status}
                 </Badge>
             </div>
 
-            {/* Main Grid */}
-            <div className="grid gap-6 lg:grid-cols-3">
+            {/* Main Grid - single column on mobile */}
+            <div className="grid gap-6 grid-cols-1 lg:grid-cols-3">
                 {/* Left Column - Order Items & Timeline */}
                 <div className="lg:col-span-2 space-y-6">
                     {/* Order Items */}
@@ -197,17 +197,17 @@ export default function OrderDetailPage() {
                             <CardTitle className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Order Items</CardTitle>
                         </CardHeader>
                         <CardContent className="pt-6">
-                            <div className="space-y-4">
+                            <div className="space-y-3 md:space-y-4">
                                 {order.items.map((item: any) => (
-                                    <div key={item.id} className="flex items-center gap-4 p-4 border border-border rounded-sm">
-                                        <div className="h-16 w-16 bg-muted rounded-none flex items-center justify-center border border-border">
-                                            <Package className="h-8 w-8 text-muted-foreground/30" />
+                                    <div key={item.id} className="flex items-center gap-3 md:gap-4 p-3 md:p-4 border border-border rounded-sm">
+                                        <div className="h-14 w-14 md:h-16 md:w-16 bg-muted rounded-none flex items-center justify-center border border-border shrink-0">
+                                            <Package className="h-6 w-6 md:h-8 md:w-8 text-muted-foreground/30" />
                                         </div>
-                                        <div className="flex-1">
-                                            <p className="text-sm font-black text-foreground">{item.name}</p>
-                                            <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Qty: {item.quantity}</p>
+                                        <div className="flex-1 min-w-0">
+                                            <p className="text-sm font-black text-foreground truncate">{item.name}</p>
+                                            <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Qty: {item.quantity} × ${item.price.toFixed(2)}</p>
                                         </div>
-                                        <p className="text-sm font-black text-foreground">${item.price.toFixed(2)}</p>
+                                        <p className="text-sm font-black text-foreground shrink-0">${(item.quantity * item.price).toFixed(2)}</p>
                                     </div>
                                 ))}
                             </div>
@@ -240,23 +240,23 @@ export default function OrderDetailPage() {
                             <CardTitle className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Order Timeline</CardTitle>
                         </CardHeader>
                         <CardContent className="pt-6">
-                            <div className="space-y-4">
+                            <div className="space-y-2 md:space-y-4">
                                 {order.timeline.map((event: any, index: number) => (
-                                    <div key={index} className="flex gap-6">
+                                    <div key={index} className="flex gap-3 md:gap-6">
                                         <div className="flex flex-col items-center">
-                                            <div className={`h-8 w-8 rounded-none border border-border flex items-center justify-center ${event.completed ? 'bg-blue-600' : 'bg-muted'}`}>
-                                                {event.completed && <div className="h-2 w-2 bg-white rounded-none" />}
+                                            <div className={`h-6 w-6 md:h-8 md:w-8 rounded-none border border-border flex items-center justify-center shrink-0 ${event.completed ? 'bg-blue-600' : 'bg-muted'}`}>
+                                                {event.completed && <div className="h-1.5 w-1.5 md:h-2 md:w-2 bg-white rounded-none" />}
                                             </div>
                                             {index < order.timeline.length - 1 && (
-                                                <div className={`w-px flex-1 my-1 ${event.completed ? 'bg-blue-600' : 'bg-border'}`} style={{ minHeight: '32px' }} />
+                                                <div className={`w-px flex-1 my-0.5 md:my-1 ${event.completed ? 'bg-blue-600' : 'bg-border'}`} style={{ minHeight: '20px' }} />
                                             )}
                                         </div>
-                                        <div className="flex-1 pb-6">
-                                            <p className={`text-sm font-black uppercase tracking-tight ${event.completed ? 'text-foreground' : 'text-muted-foreground'}`}>
+                                        <div className="flex-1 min-w-0 pb-4 md:pb-6">
+                                            <p className={`text-xs md:text-sm font-black uppercase tracking-tight ${event.completed ? 'text-foreground' : 'text-muted-foreground'}`}>
                                                 {event.status}
                                             </p>
                                             {event.date && (
-                                                <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold mt-1">
+                                                <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold mt-0.5 md:mt-1 truncate">
                                                     {event.date}
                                                 </p>
                                             )}
@@ -268,8 +268,8 @@ export default function OrderDetailPage() {
                     </Card>
                 </div>
 
-                {/* Right Column - Customer & Shipping Info */}
-                <div className="space-y-6">
+                {/* Right Column - Customer & Shipping Info - order 2 on mobile */}
+                <div className="space-y-6 order-2 lg:order-none">
                     {/* Customer Info */}
                     <Card className="rounded-none border-border bg-card relative overflow-hidden">
                         <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-600" />

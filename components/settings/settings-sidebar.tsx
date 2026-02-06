@@ -96,30 +96,31 @@ export function SettingsSidebar({ className, ...props }: SettingsSidebarProps) {
     const pathname = usePathname();
 
     return (
-        <aside className={cn("hidden w-[250px] flex-col border-r bg-background lg:flex", className)} {...props}>
-            <div className="p-4 border-b">
+        <aside className={cn("w-full lg:w-[250px] flex flex-col border-b lg:border-b-0 lg:border-r bg-background", className)} {...props}>
+            <div className="p-4 border-b hidden lg:block">
                 <div className="relative">
                     <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
                     <Input placeholder="Search settings..." className="pl-8 h-9" />
                 </div>
             </div>
-            <div className="flex-1 overflow-auto py-2">
-                <nav className="grid gap-1 px-4 text-sm font-medium">
+            <div className="flex-1 overflow-x-auto lg:overflow-y-auto py-2 scrollbar-hide">
+                <nav className="flex lg:grid gap-1 px-4 text-sm font-medium">
                     {sidebarItems.map((item, index) => {
                         const Icon = item.icon;
+                        const isActive = pathname === item.href;
                         return (
                             <Link
                                 key={index}
                                 href={item.href}
                                 className={cn(
-                                    "flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary",
-                                    pathname === item.href
-                                        ? "bg-muted text-primary"
-                                        : "text-muted-foreground"
+                                    "flex items-center gap-3 rounded-none lg:rounded-lg px-3 py-2 transition-all hover:text-primary whitespace-nowrap border-b-2 lg:border-b-0",
+                                    isActive
+                                        ? "bg-muted lg:bg-muted text-primary border-pink-500 lg:border-transparent"
+                                        : "text-muted-foreground border-transparent"
                                 )}
                             >
                                 <Icon className="h-4 w-4" />
-                                {item.title}
+                                <span className="uppercase text-[10px] lg:text-sm font-bold tracking-widest lg:tracking-normal">{item.title}</span>
                             </Link>
                         )
                     })}
